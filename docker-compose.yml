@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  masoud-portfolio:
+    build: .
+    container_name: masoud_portfolio_app
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=production

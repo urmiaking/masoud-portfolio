@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="وب‌سایت شخصی و پورتفولیو مسعود خدادادی - مهندس ارشد نرم‌افزار و توسعه‌دهنده فول‌استک دات‌نت (.NET 10 & C# 14) | رتبه اول ارشد دانشگاه ارومیه">
+    <meta name="keywords" content="مسعود خدادادی, مهندس نرم افزار, توسعه دهنده دات نت, C# 14, .NET 10 Core, Blazor, MAUI, Microservices, Clean Architecture, دانشگاه ارومیه">
+    <meta name="author" content="مسعود خدادادی">
+    <title>مسعود خدادادی | مهندس ارشد نرم‌افزار و توسعه‌دهنده فول‌استک .NET</title>
+
+    <!-- Google Fonts: Vazirmatn & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: 'var(--bg-dark)',
+                        surface: 'var(--bg-surface)',
+                        main: 'var(--text-main)',
+                        muted: 'var(--text-muted)',
+                        glass: 'var(--border-glass)',
+                        'glass-subtle': 'var(--border-glass-subtle)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-dark text-main antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Background Dynamic Canvas & Ambient Light Gradients -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        <div class="ambient-glow glow-3"></div>
+        <canvas id="particleCanvas" class="w-full h-full opacity-40"></canvas>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-4 left-4 right-4 z-50 transition-all duration-300">
+        <nav class="max-w-7xl mx-auto glass-nav rounded-2xl px-5 py-3.5 flex items-center justify-between border border-glass">
+            <!-- Brand Logo -->
+            <a href="#hero" class="flex items-center gap-3 group cursor-pointer">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-lg shadow-glow group-hover:scale-105 transition-transform duration-300">
+                    MK
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-base tracking-wide group-hover:text-cyan-400 transition-colors">مسعود خدادادی</span>
+                    <span class="text-xs text-muted font-mono">Full-Stack .NET Engineer</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="hidden md:flex items-center gap-1 bg-surface/50 p-1.5 rounded-xl border border-glass-subtle text-sm">
+                <li><a href="#about" class="nav-link px-4 py-2 rounded-lg transition-all duration-200 text-muted">درباره من</a></li>
+                <li><a href="#skills" class="nav-link px-4 py-2 rounded-lg transition-all duration-200 text-muted">مهارت‌ها</a></li>
+                <li><a href="#projects" class="nav-link px-4 py-2 rounded-lg transition-all duration-200 text-muted">پروژه‌ها</a></li>
+                <li><a href="#experience" class="nav-link px-4 py-2 rounded-lg transition-all duration-200 text-muted">سوابق شغلی</a></li>
+                <li><a href="#terminal" class="nav-link px-4 py-2 rounded-lg transition-all duration-200 text-muted">ترمینال</a></li>
+                <li><a href="#contact" class="nav-link px-4 py-2 rounded-lg transition-all duration-200 text-muted">تماس</a></li>
+            </ul>
+
+            <!-- Controls & Action CTA -->
+            <div class="flex items-center gap-3">
+                <!-- Dark/Light Theme Switcher -->
+                <button id="themeToggle" class="p-2.5 rounded-xl glass-button text-muted hover:text-indigo-600 dark:hover:text-white transition-all cursor-pointer" aria-label="تغییر تم">
+                    <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+
+                <!-- Resume Download CTA Button -->
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-500 text-white font-medium text-sm shadow-glow-indigo hover:shadow-glow-cyan hover:scale-[1.02] transition-all duration-300 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    <span>ارتباط و دانلود رزومه</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl glass-button text-muted hover:text-white transition-all cursor-pointer" aria-label="منوی موبایل">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto mt-2 glass-card rounded-2xl p-4 border border-glass animate-fade-in">
+            <ul class="flex flex-col gap-2 text-sm font-medium">
+                <li><a href="#about" class="mobile-nav-link block p-3 rounded-xl hover:bg-white/5 transition-colors">درباره من</a></li>
+                <li><a href="#skills" class="mobile-nav-link block p-3 rounded-xl hover:bg-white/5 transition-colors">مهارت‌ها</a></li>
+                <li><a href="#projects" class="mobile-nav-link block p-3 rounded-xl hover:bg-white/5 transition-colors">پروژه‌ها</a></li>
+                <li><a href="#experience" class="mobile-nav-link block p-3 rounded-xl hover:bg-white/5 transition-colors">سوابق شغلی</a></li>
+                <li><a href="#terminal" class="mobile-nav-link block p-3 rounded-xl hover:bg-white/5 transition-colors">ترمینال تعاملی</a></li>
+                <li><a href="#contact" class="mobile-nav-link block p-3 rounded-xl hover:bg-white/5 transition-colors">تماس با من</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 pt-28 pb-20 space-y-32">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[85vh] flex items-center justify-center px-4 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+                <!-- Hero Text Left (RTL Right side) -->
+                <div class="lg:col-span-7 flex flex-col items-start gap-6 text-right">
+                    
+                    <!-- Availability Pill Badge (High contrast text in Light & Dark Mode) -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card border border-indigo-500/30 text-xs font-bold text-indigo-700 dark:text-indigo-300">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>فول‌استک دات‌نت | معماری‌های مقیاس‌پذیر & Microservices</span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <div class="space-y-2">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                            سلام، من <span class="gradient-text font-black">مسعود خدادادی</span> هستم
+                        </h1>
+                        <div class="h-12 flex items-center text-xl sm:text-2xl text-cyan-600 dark:text-cyan-400 font-mono font-bold">
+                            <span id="typedRole"></span><span class="cursor-blink">|</span>
+                        </div>
+                    </div>
+
+                    <!-- Intro Paragraph -->
+                    <p class="text-base sm:text-lg text-muted max-w-2xl leading-relaxed text-justify">
+                        برنامه‌نویس فول‌استک و مهندس نرم‌افزار با **بیش از ۵ سال سابقه درخشان** و **رتبه اول فارغ‌التحصیلی در مقاطع کارشناسی و ارشد مهندسی نرم‌افزار از دانشگاه ارومیه**. متخصص اکوسیستم دات‌نت (.NET 10, Blazor, .NET MAUI)، پیاده‌سازی معماری Clean، DDD و میکروسرویس‌ها.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-4 w-full sm:w-auto">
+                        <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 text-white font-bold text-base shadow-glow-indigo hover:shadow-glow-cyan hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer">
+                            <span>بررسی پروژه‌های کلیدی</span>
+                            <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                        <a href="#contact" class="w-full sm:w-auto px-7 py-3.5 rounded-xl glass-button border border-glass font-semibold text-base hover:border-indigo-500/50 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
+                            <span>ارتباط با من</span>
+                        </a>
+                    </div>
+
+                    <!-- Tech Stack Micro Badges (High Contrast Vazirmatn Pills) -->
+                    <div class="pt-6 border-t border-glass-subtle w-full flex flex-wrap items-center gap-3 text-xs text-muted">
+                        <span class="text-xs text-main font-bold">فناوری‌های اصلی:</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill px-3 py-1.5 rounded-lg border">C# 14 / .NET 10</span>
+                            <span class="tech-pill px-3 py-1.5 rounded-lg border">ASP.NET Core Web API</span>
+                            <span class="tech-pill px-3 py-1.5 rounded-lg border">Blazor & .NET MAUI</span>
+                            <span class="tech-pill px-3 py-1.5 rounded-lg border">SQL Server & EF Core</span>
+                            <span class="tech-pill px-3 py-1.5 rounded-lg border">Docker & Microservices</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Hero Code & Interactive Preview Card (Fixed Dark Theme IDE for Crisp Reading in all modes) -->
+                <div class="lg:col-span-5 relative w-full">
+                    <div class="glow-bg absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 rounded-3xl blur-xl opacity-35 animate-pulse"></div>
+                    
+                    <div class="relative bg-[#0f172a] rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+                        <!-- Code Window Header -->
+                        <div class="bg-[#1e293b] px-4 py-3 border-b border-white/10 flex items-center justify-between font-mono text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                            </div>
+                            <span class="text-slate-300 font-semibold">MasoudKhodadadi.cs</span>
+                            <span class="text-cyan-400 font-semibold">C# 14 / .NET 10</span>
+                        </div>
+
+                        <!-- Code Content Area -->
+                        <div class="p-5 font-mono text-xs sm:text-sm leading-relaxed text-slate-200 overflow-x-auto dir-ltr text-left bg-[#0f172a]">
+                            <p><span class="text-purple-400">public class</span> <span class="text-amber-300">SeniorSoftwareEngineer</span></p>
+                            <p>{</p>
+                            <p class="pl-4"><span class="text-purple-400">public string</span> <span class="text-cyan-300">Name</span> => <span class="text-emerald-400">"مسعود خدادادی"</span>;</p>
+                            <p class="pl-4"><span class="text-purple-400">public string</span> <span class="text-cyan-300">Degree</span> => <span class="text-emerald-400">"ارشد مهندسی نرم‌افزار (رتبه ۱)"</span>;</p>
+                            <p class="pl-4"><span class="text-purple-400">public int</span> <span class="text-cyan-300">ExperienceYears</span> => <span class="text-orange-400">5</span>;</p>
+                            <p class="pl-4"><span class="text-purple-400">public string[]</span> <span class="text-cyan-300">CoreStack</span> => <span class="text-purple-400">new</span>[] {</p>
+                            <p class="pl-8"><span class="text-emerald-400">"C# 14"</span>, <span class="text-emerald-400">".NET 10 Core"</span>, <span class="text-emerald-400">"Blazor"</span>, <span class="text-emerald-400">".NET MAUI"</span>,</p>
+                            <p class="pl-8"><span class="text-emerald-400">"Microservices"</span>, <span class="text-emerald-400">"Clean Architecture"</span>, <span class="text-emerald-400">"SQL Server"</span></p>
+                            <p class="pl-4">};</p>
+                            <p class="pl-4"><span class="text-purple-400">public string</span> <span class="text-cyan-300">University</span> => <span class="text-emerald-400">"دانشگاه ارومیه"</span>;</p>
+                            <p>}</p>
+                            <br>
+                            <p><span class="text-blue-400">var</span> engineer = <span class="text-purple-400">new</span> <span class="text-amber-300">SeniorSoftwareEngineer</span>();</p>
+                            <p><span class="text-blue-400">await</span> engineer.<span class="text-blue-300">BuildScalableSolutionAsync</span>();</p>
+                        </div>
+
+                        <!-- Card Footer Status -->
+                        <div class="px-5 py-3 bg-[#1e293b] border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-300">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                Build: Successful (.NET 10.0)
+                            </span>
+                            <span class="text-amber-300 font-semibold">Rank 1 Honor Grad</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats & Metrics Counter Banner (Font Vazirmatn applied) -->
+        <section class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 glass-card p-8 rounded-3xl border border-glass shadow-xl">
+                <!-- Stat 1 -->
+                <div class="flex flex-col items-center justify-center text-center p-4">
+                    <span class="text-4xl sm:text-5xl font-black gradient-text tracking-tight counter" data-target="5">+0</span>
+                    <span class="text-sm font-bold text-main mt-2">سال سابقه کار تخصصی</span>
+                    <span class="text-xs text-muted mt-1">برنامه‌نویسی و توسعه دات‌نت</span>
+                </div>
+                <!-- Stat 2 -->
+                <div class="flex flex-col items-center justify-center text-center p-4 border-r border-glass-subtle md:border-r">
+                    <span class="text-4xl sm:text-5xl font-black gradient-text tracking-tight counter" data-target="1">رتبه </span>
+                    <span class="text-sm font-bold text-main mt-2">رتبه ۱ کارشناسی و ارشد</span>
+                    <span class="text-xs text-muted mt-1">دانشگاه دولتی ارومیه</span>
+                </div>
+                <!-- Stat 3 -->
+                <div class="flex flex-col items-center justify-center text-center p-4 border-r border-glass-subtle">
+                    <span class="text-4xl sm:text-5xl font-black gradient-text tracking-tight counter" data-target="15">+0</span>
+                    <span class="text-sm font-bold text-main mt-2">پروژه و سامانه موفق</span>
+                    <span class="text-xs text-muted mt-1">صرافی، بیمارستان، سیستم‌های مالی</span>
+                </div>
+                <!-- Stat 4 -->
+                <div class="flex flex-col items-center justify-center text-center p-4 border-r border-glass-subtle">
+                    <span class="text-4xl sm:text-5xl font-black gradient-text tracking-tight counter" data-target="100">100%</span>
+                    <span class="text-sm font-bold text-main mt-2">تعهد به Clean Code</span>
+                    <span class="text-xs text-muted mt-1">معماری Clean & DDD</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section (Justified Persian Text) -->
+        <section id="about" class="max-w-7xl mx-auto px-4">
+            <div class="space-y-12">
+                <!-- Section Title -->
+                <div class="text-center space-y-4 max-w-2xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 text-xs font-bold border border-indigo-500/20">
+                        مسیر حرفه‌ای و تحصیلی
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">درباره <span class="gradient-text">مسعود خدادادی</span></h2>
+                    <p class="text-muted text-base leading-relaxed">
+                        ترکیب دانش عمیق آکادمیک با تجربه عملی در خلق سیستم‌های پیچیده نرم‌افزاری
+                    </p>
+                </div>
+
+                <!-- Bio Content Card (Justified Text) -->
+                <div class="glass-card p-8 sm:p-10 rounded-3xl border border-glass space-y-6 leading-relaxed text-muted text-base sm:text-lg text-justify">
+                    <p class="text-justify">
+                        من <strong class="text-main font-bold">مسعود خدادادی</strong> هستم؛ مهندس نرم‌افزار، توسعه‌دهنده ارشد فول‌استک دات‌نت و فارغ‌التحصیل <span class="text-indigo-600 dark:text-indigo-400 font-bold">رتبه اول در هر دو مقطع کارشناسی و کارشناسی ارشد مهندسی نرم‌افزار از دانشگاه ارومیه</span>. اشتیاق بی‌پایان من به دنیای نرم‌افزار از همان دوران تحصیل و حل مسائل پیچیده الگوریتمی شکل گرفت و تا امروز در قالب طراحی و پیاده‌سازی سیستم‌های حساس سازمانی ادامه دارد.
+                    </p>
+                    <p class="text-justify">
+                        طی بیش از ۵ سال فعالیت حرفه‌ای، افتخار همکاری با مجموعه‌های برجسته‌ای همچون <strong class="text-cyan-700 dark:text-cyan-400">شهرداری ارومیه</strong>، <strong class="text-cyan-700 dark:text-cyan-400">شرکت اتراب (Etraab - پلتفرم آنلاین معاملات طلا)</strong>، <strong class="text-cyan-700 dark:text-cyan-400">بیمارستان عارفیان (سامانه‌های یکپارچه بیمارستانی HIS)</strong> و چندین پروژه صنعتی و فریلنسری را داشته‌ام. کلید موفقیت من در این مسیر، تسلط بر فناوری‌های مدرن اکوسیستم دات‌نت (.NET 10 Core, Blazor, .NET MAUI)، دیتابیس‌های مقیاس‌پذیر و پایبندی سرسختانه به اصول معماری مانند <span class="text-emerald-700 dark:text-emerald-400 font-bold">Clean Architecture, DDD و Microservices</span> بوده است.
+                    </p>
+                    <p class="text-justify">
+                        باور قلبی من این است که یک کد عالی نه تنها باید به درستی اجرا شود، بلکه باید خوانا، تست‌پذیر، ایمن و قابل توسعه در مقیاس بزرگ باشد. همواره در حال یادگیری آخرین دستاوردهای دنیای نرم‌افزار هستم و چالش‌های پیچیده فنی را فرصتی برای خلق ارزش واقعی و نوآوری می‌دانم.
+                    </p>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pillar 1 -->
+                    <div class="glass-card p-8 rounded-2xl border border-glass hover:-translate-y-1.5 transition-all duration-300 group">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-600/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">پایه علمی درخشان</h3>
+                        <p class="text-muted text-sm leading-relaxed text-justify">
+                            دانش عمیق آکادمیک و کسب رتبه ۱ کارشناسی و ارشد مهندسی نرم‌افزار، شالوده الگوریتمی قوی برای حل چالش‌ها فراهم کرده است.
+                        </p>
+                    </div>
+
+                    <!-- Pillar 2 -->
+                    <div class="glass-card p-8 rounded-2xl border border-glass hover:-translate-y-1.5 transition-all duration-300 group">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-600/20 text-cyan-700 dark:text-cyan-400 flex items-center justify-center mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-colors duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">معماری پاک & DDD</h3>
+                        <p class="text-muted text-sm leading-relaxed text-justify">
+                            طراحی و ساختاردهی نرم‌افزارها طبق اصول Clean Architecture و Domain-Driven Design جهت کاهش حداکثری بدهی فنی.
+                        </p>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="glass-card p-8 rounded-2xl border border-glass hover:-translate-y-1.5 transition-all duration-300 group">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-600/20 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">توسعه مالتی‌پلتفرم</h3>
+                        <p class="text-muted text-sm leading-relaxed text-justify">
+                            توسعه جامع سیستم‌های وب، موبایل (.NET MAUI/Xamarin) و دسکتاپ (WPF) با بالاترین هماهنگی و یکپارچگی داده‌ها.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack & Skills Section -->
+        <section id="skills" class="max-w-7xl mx-auto px-4">
+            <div class="space-y-12">
+                <!-- Title -->
+                <div class="text-center space-y-4 max-w-2xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 text-xs font-bold border border-cyan-500/20">
+                        مجموعه مهارت‌ها
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">تکنولوژی‌ها و <span class="gradient-text">مهارت‌های تخصصی</span></h2>
+                    <p class="text-muted text-base">دسته تفکیک‌شده ابزارها و فناوری‌های مورد استفاده مسعود خدادادی</p>
+                </div>
+
+                <!-- Skill Filter Tabs -->
+                <div class="flex items-center justify-center gap-2 flex-wrap">
+                    <button class="skill-tab active px-5 py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer" data-filter="all">همه مهارت‌ها</button>
+                    <button class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm text-muted transition-all cursor-pointer" data-filter="backend">Backend & .NET</button>
+                    <button class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm text-muted transition-all cursor-pointer" data-filter="architecture">معماری & الگوها</button>
+                    <button class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm text-muted transition-all cursor-pointer" data-filter="mobile">موبایل & دسکتاپ</button>
+                    <button class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm text-muted transition-all cursor-pointer" data-filter="database">دیتابیس & زیرساخت</button>
+                </div>
+
+                <!-- Skill Cards Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5" id="skillGrid">
+                    
+                    <!-- C# -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-purple-500/50 transition-all cursor-pointer group" data-category="backend">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            C#
+                        </div>
+                        <span class="font-bold text-sm">C# 14</span>
+                        <span class="text-xs text-muted font-bold">تسلط کامل</span>
+                    </div>
+
+                    <!-- .NET Core -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-indigo-500/50 transition-all cursor-pointer group" data-category="backend">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            .NET
+                        </div>
+                        <span class="font-bold text-sm">.NET 10 Core</span>
+                        <span class="text-xs text-muted font-bold">توسعه ارشد</span>
+                    </div>
+
+                    <!-- ASP.NET Core Web API -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-cyan-500/50 transition-all cursor-pointer group" data-category="backend">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            API
+                        </div>
+                        <span class="font-bold text-sm">ASP.NET Web API</span>
+                        <span class="text-xs text-muted font-bold">طراحی REST API</span>
+                    </div>
+
+                    <!-- Blazor -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-blue-500/50 transition-all cursor-pointer group" data-category="backend">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            Blazor
+                        </div>
+                        <span class="font-bold text-sm">Blazor (Wasm/Server)</span>
+                        <span class="text-xs text-muted font-bold">توسعه وب‌اپلیکیشن</span>
+                    </div>
+
+                    <!-- Microservices -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-emerald-500/50 transition-all cursor-pointer group" data-category="architecture">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            MS
+                        </div>
+                        <span class="font-bold text-sm">Microservices</span>
+                        <span class="text-xs text-muted font-bold">معماری توزیع‌شده</span>
+                    </div>
+
+                    <!-- Clean Architecture -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-teal-500/50 transition-all cursor-pointer group" data-category="architecture">
+                        <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            CA
+                        </div>
+                        <span class="font-bold text-sm">Clean Architecture</span>
+                        <span class="text-xs text-muted font-bold">طراحی ساختار پاک</span>
+                    </div>
+
+                    <!-- Domain-Driven Design (DDD) -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-amber-500/50 transition-all cursor-pointer group" data-category="architecture">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            DDD
+                        </div>
+                        <span class="font-bold text-sm">DDD (Domain Design)</span>
+                        <span class="text-xs text-muted font-bold">طراحی دامین‌محور</span>
+                    </div>
+
+                    <!-- SQL Server & EF Core -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-rose-500/50 transition-all cursor-pointer group" data-category="database">
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            SQL
+                        </div>
+                        <span class="font-bold text-sm">SQL Server & EF Core</span>
+                        <span class="text-xs text-muted font-bold">طراحی دیتابیس</span>
+                    </div>
+
+                    <!-- .NET MAUI & Xamarin -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-sky-500/50 transition-all cursor-pointer group" data-category="mobile">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            MAUI
+                        </div>
+                        <span class="font-bold text-sm">.NET MAUI / Xamarin</span>
+                        <span class="text-xs text-muted font-bold">توسعه موبایل</span>
+                    </div>
+
+                    <!-- WPF & WinForms -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-slate-500/50 transition-all cursor-pointer group" data-category="mobile">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 text-slate-700 dark:text-slate-300 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            WPF
+                        </div>
+                        <span class="font-bold text-sm">WPF & WinForms</span>
+                        <span class="text-xs text-muted font-bold">نرم‌افزار دسکتاپ</span>
+                    </div>
+
+                    <!-- Docker & Kubernetes -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-blue-500/50 transition-all cursor-pointer group" data-category="database">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            Doc
+                        </div>
+                        <span class="font-bold text-sm">Docker & Kubernetes</span>
+                        <span class="text-xs text-muted font-bold">کانتینرسازی</span>
+                    </div>
+
+                    <!-- Python & Java Socket -->
+                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-emerald-500/50 transition-all cursor-pointer group" data-category="backend">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
+                            IoT
+                        </div>
+                        <span class="font-bold text-sm">Python / Java Socket</span>
+                        <span class="text-xs text-muted font-bold">برنامه‌نویسی سیستم</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects Portfolio Section (Etraab 1404 - present, fixed preview graphics & high contrast badges) -->
+        <section id="projects" class="max-w-7xl mx-auto px-4">
+            <div class="space-y-12">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div class="space-y-3">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-400 text-xs font-bold border border-purple-500/20">
+                            پروژه‌های شاخص
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold">نمونه کارهای <span class="gradient-text">برگزیده</span></h2>
+                        <p class="text-muted text-base max-w-xl">مجموعه‌ای از پروژه‌های کلیدی پیاده‌سازی شده در صنایع مالی، بیمارستانی و ارتباطات شبکه‌ای</p>
+                    </div>
+                </div>
+
+                <!-- Projects Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projectGrid">
+
+                    <!-- Project Card 1: Etraab -->
+                    <div class="project-card glass-card rounded-3xl border border-glass overflow-hidden hover:-translate-y-2 transition-all duration-300 group" data-category="fullstack">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-amber-950 via-slate-900 to-amber-900 p-6 flex flex-col justify-between border-b border-white/10">
+                            <div class="flex items-center justify-between z-10">
+                                <span class="px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/40">شرکت اتراب (Etraab)</span>
+                                <span class="text-xs text-slate-300 font-bold">۱۴۰۴ - تاکنون</span>
+                            </div>
+                            
+                            <div class="my-auto flex justify-center items-center">
+                                <div class="w-full max-w-md p-4 rounded-xl bg-[#0f172a] border border-white/10 font-mono text-xs text-amber-300 shadow-2xl">
+                                    <div class="flex items-center justify-between pb-2 border-b border-white/10 text-slate-400">
+                                        <span>Etraab Gold Exchange Platform</span>
+                                        <span class="text-emerald-400">● Live Trading</span>
+                                    </div>
+                                    <p class="pt-2 text-slate-200">Gold Price Engine: Live Market Sync</p>
+                                    <p class="text-cyan-400">ASP.NET Core Web API + Blazor Engine</p>
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="p-8 space-y-4">
+                            <h3 class="text-2xl font-bold group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">پلتفرم جامع معاملات آنلاین طلا و صرافی (Etraab)</h3>
+                            <p class="text-muted text-sm leading-relaxed text-justify">
+                                سیستم کامل خرید، فروش و تسویه آنلاین طلا و قیمت‌گذاری لحظه‌ای با معماری مطمئن .NET Core و امنیت بالای دادوستد مالی.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">C# 14 / .NET 10</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">ASP.NET Web API</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">Blazor / React</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">SQL Server & EF Core</span>
+                            </div>
+
+                            <div class="pt-4 border-t border-glass-subtle flex items-center justify-between">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="1">
+                                    <span>مشاهده جزئیات کامل فنی</span>
+                                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: Arefian HIS -->
+                    <div class="project-card glass-card rounded-3xl border border-glass overflow-hidden hover:-translate-y-2 transition-all duration-300 group" data-category="backend">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-blue-900 p-6 flex flex-col justify-between border-b border-white/10">
+                            <div class="flex items-center justify-between z-10">
+                                <span class="px-3 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold border border-indigo-400/40">بیمارستان عارفیان</span>
+                                <span class="text-xs text-slate-300 font-bold">۱۴۰۰ - ۱۴۰۲</span>
+                            </div>
+                            
+                            <div class="my-auto flex justify-center items-center">
+                                <div class="w-full max-w-md p-4 rounded-xl bg-[#0f172a] border border-white/10 font-mono text-xs text-cyan-300 shadow-2xl">
+                                    <div class="flex items-center justify-between pb-2 border-b border-white/10 text-slate-400">
+                                        <span>Hospital Info System (HIS)</span>
+                                        <span class="text-emerald-400">Integrated</span>
+                                    </div>
+                                    <p class="pt-2 text-slate-200">Modules: Appointments, Medical Records, Attendance</p>
+                                    <p class="text-indigo-400">Clean Architecture + MSSQL Database</p>
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="p-8 space-y-4">
+                            <h3 class="text-2xl font-bold group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">سامانه‌های یکپارچه مدیریت بیمارستانی (HIS)</h3>
+                            <p class="text-muted text-sm leading-relaxed text-justify">
+                                طراحی و توسعه ماژول‌های حیاتی نوبت‌دهی، کنترل تردد، پرسنلی، تغذیه و سوابق پزشکی بیماران با کارایی و پایداری بالا.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">C# ASP.NET Core</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">Clean Architecture</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">MSSQL Server</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">Web API</span>
+                            </div>
+
+                            <div class="pt-4 border-t border-glass-subtle flex items-center justify-between">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="2">
+                                    <span>مشاهده جزئیات کامل فنی</span>
+                                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3: Fani Jewelry -->
+                    <div class="project-card glass-card rounded-3xl border border-glass overflow-hidden hover:-translate-y-2 transition-all duration-300 group" data-category="mobile">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-rose-950 via-slate-900 to-purple-900 p-6 flex flex-col justify-between border-b border-white/10">
+                            <div class="flex items-center justify-between z-10">
+                                <span class="px-3 py-1.5 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold border border-rose-400/40">طلا و جواهری فانی (فریلنس)</span>
+                                <span class="text-xs text-slate-300 font-bold">۱۴۰۰</span>
+                            </div>
+                            
+                            <div class="my-auto flex justify-center items-center">
+                                <div class="w-full max-w-md p-4 rounded-xl bg-[#0f172a] border border-white/10 font-mono text-xs text-rose-300 shadow-2xl">
+                                    <div class="flex items-center justify-between pb-2 border-b border-white/10 text-slate-400">
+                                        <span>Fani Gallery ERP & Mobile</span>
+                                        <span class="text-amber-400">Barcode Scanning</span>
+                                    </div>
+                                    <p class="pt-2 text-slate-200">ASP.NET Core Web + Xamarin Mobile Scanner</p>
+                                    <p class="text-cyan-400">Live Gold Price Calculation Engine</p>
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="p-8 space-y-4">
+                            <h3 class="text-2xl font-bold group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">نرم‌افزار حسابداری گالری طلا و اپلیکیشن بارکدخوان</h3>
+                            <p class="text-muted text-sm leading-relaxed text-justify">
+                                سیستم جامع تحت وب برای صدور فاکتور رسمی و محاسبه آنلاین قیمت طلا + اپلیکیشن موبایل Xamarin جهت انبارگردانی سریع با بارکد.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">ASP.NET Core</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">Xamarin Mobile</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">SQL Server</span>
+                            </div>
+
+                            <div class="pt-4 border-t border-glass-subtle flex items-center justify-between">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="3">
+                                    <span>مشاهده جزئیات کامل فنی</span>
+                                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 4: Cheshmeh Jooshan & Skynic -->
+                    <div class="project-card glass-card rounded-3xl border border-glass overflow-hidden hover:-translate-y-2 transition-all duration-300 group" data-category="fullstack">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-teal-950 via-slate-900 to-emerald-900 p-6 flex flex-col justify-between border-b border-white/10">
+                            <div class="flex items-center justify-between z-10">
+                                <span class="px-3 py-1.5 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold border border-teal-400/40">چشمه جوشان کوثر & اسکای نیک</span>
+                                <span class="text-xs text-slate-300 font-bold">۱۳۹۸ - ۱۴۰۰</span>
+                            </div>
+                            
+                            <div class="my-auto flex justify-center items-center">
+                                <div class="w-full max-w-md p-4 rounded-xl bg-[#0f172a] border border-white/10 font-mono text-xs text-emerald-300 shadow-2xl">
+                                    <div class="flex items-center justify-between pb-2 border-b border-white/10 text-slate-400">
+                                        <span>Android Charity App & IoT Platform</span>
+                                        <span class="text-emerald-400">Java Socket</span>
+                                    </div>
+                                    <p class="pt-2 text-slate-200">Multi-tier Referral Network + IoT Device Server</p>
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="p-8 space-y-4">
+                            <h3 class="text-2xl font-bold group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">اپلیکیشن خیریه و پلتفرم مدیریت دستگاه‌های IoT</h3>
+                            <p class="text-muted text-sm leading-relaxed text-justify">
+                                توسعه اپلیکیشن موبایل خیریه با سیستم زیرمجموعه‌گیری و درآمدزایی + سرور سوکت پروگرمینگ جاوا برای مدیریت دستگاه‌های هوشمند.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">Android App</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">Java Socket</span>
+                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">PHP / Admin Panel</span>
+                            </div>
+
+                            <div class="pt-4 border-t border-glass-subtle flex items-center justify-between">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="4">
+                                    <span>مشاهده جزئیات کامل فنی</span>
+                                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience Timeline Section (Responsive Mobile Alignments & High Contrast Subtitles) -->
+        <section id="experience" class="max-w-7xl mx-auto px-4">
+            <div class="space-y-12">
+                <div class="text-center space-y-4 max-w-2xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-bold border border-emerald-500/20">
+                        تجربیات حرفه‌ای
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">سوابق <span class="gradient-text">کاری و سازمانی</span></h2>
+                    <p class="text-muted text-base">مسیر ۵+ سال فعالیت تخصصی مسعود خدادادی در سازمان‌ها و پروژه‌های کلیدی</p>
+                </div>
+
+                <!-- Timeline Container -->
+                <div class="relative max-w-4xl mx-auto space-y-8 timeline-line before:absolute before:inset-0 before:left-1/2 before:-translate-x-1/2 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-cyan-500 before:to-transparent">
+
+                    <!-- Job 1: Urmia Municipality -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 group">
+                        <div class="w-full md:w-1/2 md:pr-12 text-right timeline-item-wrapper">
+                            <div class="glass-card p-6 rounded-2xl border border-glass hover:border-indigo-500/40 transition-all">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs text-indigo-700 dark:text-cyan-400 font-bold">جدیدترین سابقه کاری</span>
+                                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold">فعال</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-main">برنامه‌نویس / مهندس نرم‌افزار</h3>
+                                <p class="text-sm timeline-subtitle font-bold mb-3">شهرداری ارومیه</p>
+                                <p class="text-xs text-muted leading-relaxed text-justify">
+                                    توسعه و نگهداری سامانه‌های نرم‌افزاری، بهینه‌سازی دیتابیس‌ها و مدیریت پردازش داده‌های خدمات شهری.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-dark border-4 border-indigo-500 group-hover:scale-125 transition-transform z-10 timeline-node-circle"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 hidden md:block"></div>
+                    </div>
+
+                    <!-- Job 2: Etraab (1404 - present) -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 group">
+                        <div class="w-full md:w-1/2 md:pr-12 hidden md:block"></div>
+                        <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-dark border-4 border-amber-500 group-hover:scale-125 transition-transform z-10 timeline-node-circle"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 text-right timeline-item-wrapper">
+                            <div class="glass-card p-6 rounded-2xl border border-glass hover:border-amber-400/40 transition-all">
+                                <span class="text-xs text-amber-700 dark:text-amber-400 font-bold block mb-1">شرکت اتراب (Etraab - ۱۴۰۴ - تاکنون)</span>
+                                <h3 class="text-xl font-bold text-main">برنامه‌نویس فول‌استک دات‌نت (.NET Developer)</h3>
+                                <p class="text-sm timeline-subtitle font-bold mb-3">پلتفرم صرافی و معاملات آنلاین طلا</p>
+                                <p class="text-xs text-muted leading-relaxed text-justify">
+                                    توسعه پلتفرم آنلاین خرید و فروش طلا با فناوری‌های روز .NET 10 Core، Web API، Blazor و SQL Server با بالاترین پایداری مالی.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job 3: Arefian Hospital -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 group">
+                        <div class="w-full md:w-1/2 md:pr-12 text-right timeline-item-wrapper">
+                            <div class="glass-card p-6 rounded-2xl border border-glass hover:border-indigo-400/40 transition-all">
+                                <span class="text-xs text-indigo-700 dark:text-cyan-400 font-bold block mb-1">بیمارستان عارفیان</span>
+                                <h3 class="text-xl font-bold text-main">کارشناس رایانه و برنامه‌نویس</h3>
+                                <p class="text-sm timeline-subtitle font-bold mb-3">سامانه‌های یکپارچه HIS بیمارستانی</p>
+                                <p class="text-xs text-muted leading-relaxed text-justify">
+                                    توسعه سامانه‌های نوبت‌دهی، کنترل تردد پرسنل، منابع انسانی، تغذیه و ثبت سوابق الکترونیک بیماران.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-dark border-4 border-indigo-500 group-hover:scale-125 transition-transform z-10 timeline-node-circle"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 hidden md:block"></div>
+                    </div>
+
+                    <!-- Job 4: Fani Jewelry -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 group">
+                        <div class="w-full md:w-1/2 md:pr-12 hidden md:block"></div>
+                        <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-dark border-4 border-rose-500 group-hover:scale-125 transition-transform z-10 timeline-node-circle"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 text-right timeline-item-wrapper">
+                            <div class="glass-card p-6 rounded-2xl border border-glass hover:border-rose-400/40 transition-all">
+                                <span class="text-xs text-rose-700 dark:text-rose-400 font-bold block mb-1">طلا و جواهری فانی (فریلنسری)</span>
+                                <h3 class="text-xl font-bold text-main">توسعه‌دهنده نرم‌افزار مالتی‌پلتفرم</h3>
+                                <p class="text-sm timeline-subtitle font-bold mb-3">سیستم مدیریت گالری و محاسبه طلا</p>
+                                <p class="text-xs text-muted leading-relaxed text-justify">
+                                    توسعه سیستم مدیریت موجودی و فاکتور تحت وب (ASP.NET Core) + اپلیکیشن موبایل (Xamarin) بارکدخوان محصولات.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job 5: Cheshmeh Jooshan -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 group">
+                        <div class="w-full md:w-1/2 md:pr-12 text-right timeline-item-wrapper">
+                            <div class="glass-card p-6 rounded-2xl border border-glass hover:border-teal-400/40 transition-all">
+                                <span class="text-xs text-teal-700 dark:text-teal-400 font-bold block mb-1">شرکت چشمه جوشان کوثر</span>
+                                <h3 class="text-xl font-bold text-main">برنامه‌نویس اپلیکیشن</h3>
+                                <p class="text-sm timeline-subtitle font-bold mb-3">پلتفرم خیریه و هبه</p>
+                                <p class="text-xs text-muted leading-relaxed text-justify">
+                                    توسعه اپلیکیشن اندروید خیریه با سیستم درآمدزایی و شبکه زیرمجموعه‌گیری به همراه پنل مدیریت.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-dark border-4 border-teal-500 group-hover:scale-125 transition-transform z-10 timeline-node-circle"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 hidden md:block"></div>
+                    </div>
+
+                    <!-- Job 6: Skynic & Education -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 group">
+                        <div class="w-full md:w-1/2 md:pr-12 hidden md:block"></div>
+                        <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-dark border-4 border-purple-500 group-hover:scale-125 transition-transform z-10 timeline-node-circle"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 text-right timeline-item-wrapper">
+                            <div class="glass-card p-6 rounded-2xl border border-glass hover:border-purple-400/40 transition-all">
+                                <span class="text-xs text-purple-700 dark:text-purple-400 font-bold block mb-1">شرکت اسکای نیک (Skynic) & دانشگاه ارومیه</span>
+                                <h3 class="text-xl font-bold text-main">کارآموز برنامه‌نویسی IoT & افتخارات تحصیلی</h3>
+                                <p class="text-sm timeline-subtitle font-bold mb-2">رتبه ۱ کارشناسی & رتبه ۱ کارشناسی ارشد</p>
+                                <p class="text-xs text-muted leading-relaxed text-justify">
+                                    برنامه‌نویسی سوکت در جاوا برای مدیریت دستگاه‌های هوشمند اینترنت اشیا + فارغ‌التحصیل ممتاز دانشگاه دولتی ارومیه.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Developer Terminal Section -->
+        <section id="terminal" class="max-w-7xl mx-auto px-4">
+            <div class="space-y-8">
+                <div class="text-center space-y-4 max-w-2xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-bold border border-blue-500/20">
+                        تجربه تعاملی
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">ترمینال تعاملی <span class="gradient-text">مسعود خدادادی</span></h2>
+                    <p class="text-muted text-base">دستوراتی نظیر <code class="text-indigo-600 dark:text-cyan-400 font-mono">help</code>، <code class="text-indigo-600 dark:text-cyan-400 font-mono">skills</code>، <code class="text-indigo-600 dark:text-cyan-400 font-mono">education</code> یا <code class="text-indigo-600 dark:text-cyan-400 font-mono">contact</code> را تست کنید!</p>
+                </div>
+
+                <!-- Terminal Container (Fixed Dark Theme IDE for high legibility in all themes) -->
+                <div class="max-w-4xl mx-auto bg-[#0f172a] rounded-2xl border border-white/10 overflow-hidden shadow-2xl font-mono text-xs sm:text-sm">
+                    <div class="bg-[#1e293b] px-4 py-3 border-b border-white/10 flex items-center justify-between dir-ltr">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500 cursor-pointer"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 cursor-pointer"></span>
+                        </div>
+                        <span class="text-slate-300 font-semibold">masoud@dotnet-core:~</span>
+                        <span class="text-xs text-cyan-400 font-semibold">dotnet CLI v10.0</span>
+                    </div>
+
+                    <div id="terminalBody" class="p-5 min-h-[300px] max-h-[450px] overflow-y-auto space-y-3 dir-ltr text-left bg-[#0f172a] text-slate-200">
+                        <p class="text-emerald-400 font-semibold">Welcome to Masoud Khodadadi's .NET Interactive CLI Terminal</p>
+                        <p class="text-slate-400">Type <span class="text-cyan-300 font-bold">help</span> for commands or click quick options below.</p>
+                        <div id="terminalOutput" class="space-y-2"></div>
+
+                        <div class="flex items-center gap-2 pt-2">
+                            <span class="text-cyan-400 font-bold">masoud@dotnet:~$</span>
+                            <input id="terminalInput" type="text" class="flex-1 bg-transparent border-none outline-none text-cyan-200 font-mono focus:ring-0" placeholder="type command here..." autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1e293b] px-5 py-3 border-t border-white/10 flex items-center gap-2 flex-wrap text-xs dir-ltr">
+                        <span class="text-slate-400 mr-2">Quick Commands:</span>
+                        <button class="terminal-quick-btn px-2.5 py-1 rounded bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-white/10 cursor-pointer" data-cmd="help">help</button>
+                        <button class="terminal-quick-btn px-2.5 py-1 rounded bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-white/10 cursor-pointer" data-cmd="about">about</button>
+                        <button class="terminal-quick-btn px-2.5 py-1 rounded bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-white/10 cursor-pointer" data-cmd="education">education</button>
+                        <button class="terminal-quick-btn px-2.5 py-1 rounded bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-white/10 cursor-pointer" data-cmd="skills">skills</button>
+                        <button class="terminal-quick-btn px-2.5 py-1 rounded bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-white/10 cursor-pointer" data-cmd="projects">projects</button>
+                        <button class="terminal-quick-btn px-2.5 py-1 rounded bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-white/10 cursor-pointer" data-cmd="contact">contact</button>
+                        <button class="terminal-quick-btn px-2.5 py-1 rounded bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-white/10 cursor-pointer" data-cmd="clear">clear</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Contact Info Left -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 text-rose-700 dark:text-rose-400 text-xs font-bold border border-rose-500/20">
+                            فرصت‌های همکاری
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold">ارتباط مستقیم با <span class="gradient-text">مسعود خدادادی</span></h2>
+                        <p class="text-muted text-base leading-relaxed text-justify">
+                            آماده همکاری در پروژه‌های بزرگ سازمانی، مشاوره تخصصی دات‌نت و معماری نرم‌افزار، یا پیوستن به تیم‌های پیشرو فنی.
+                        </p>
+                    </div>
+
+                    <!-- Direct Contact Badges -->
+                    <div class="space-y-4">
+                        <!-- Email Badge with Copy Action -->
+                        <div class="glass-card p-4 rounded-2xl border border-glass flex items-center justify-between group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 flex items-center justify-center">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs text-muted font-bold">پست الکترونیکی (ایمیل)</span>
+                                    <span id="emailText" class="font-mono font-bold text-sm text-main">masoud.xpress@gmail.com</span>
+                                </div>
+                            </div>
+                            <button id="copyEmailBtn" class="p-2.5 rounded-xl bg-surface hover:bg-indigo-600 text-muted hover:text-white transition-all cursor-pointer" title="کپی ایمیل">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Location Card (Urmia Only) -->
+                        <div class="glass-card p-4 rounded-2xl border border-glass flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-700 dark:text-cyan-400 flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-xs text-muted font-bold">موقعیت مکانی & همکاری</span>
+                                <span class="font-bold text-sm text-main">ایران، ارومیه | امکان همکاری ریموت (Remote) و حضوری</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Persian Form Right (Custom Inputs with Theme Support) -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-8 rounded-3xl border border-glass space-y-6">
+                        <h3 class="text-xl font-bold">ارسال پیام مستقیم برای مسعود</h3>
+                        
+                        <form id="contactForm" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div class="space-y-2">
+                                    <label for="formName" class="text-xs font-bold text-muted block">نام و نام خانوادگی <span class="text-rose-500">*</span></label>
+                                    <input type="text" id="formName" required class="custom-input w-full px-4 py-3 rounded-xl text-sm transition-colors" placeholder="مثلاً: علیرضا حسینی (مدیر فنی)">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="formEmail" class="text-xs font-bold text-muted block">پست الکترونیکی / شماره تماس <span class="text-rose-500">*</span></label>
+                                    <input type="text" id="formEmail" required class="custom-input w-full px-4 py-3 rounded-xl text-sm transition-colors dir-ltr text-left" placeholder="email@company.com">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="formSubject" class="text-xs font-bold text-muted block">موضوع پیام</label>
+                                <input type="text" id="formSubject" class="custom-input w-full px-4 py-3 rounded-xl text-sm transition-colors" placeholder="پیشنهاد همکاری / توسعه پروژه / دعوت به مصاحبه">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="formMessage" class="text-xs font-bold text-muted block">متن پیام <span class="text-rose-500">*</span></label>
+                                <textarea id="formMessage" rows="5" required class="custom-input w-full px-4 py-3 rounded-xl text-sm transition-colors leading-relaxed" placeholder="سلام جناب خدادادی، در خصوص یک پروژه با تک اکوسیستم دات‌نت..."></textarea>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 text-white font-bold text-base shadow-glow-indigo hover:shadow-glow-cyan transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                                <span>ارسال پیام برای مسعود خدادادی</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Year 1405) -->
+    <footer class="relative z-10 border-t border-glass bg-surface/40 py-8 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+            <p>© ۱۴۰۵ - تمام حقوق وب‌سایت برای **مسعود خدادادی** (توسعه‌دهنده فول‌استک .NET) محفوظ است.</p>
+            <div class="flex items-center gap-6">
+                <span>طراحی شده بر پایه Clean Architecture و اکوسیستم دات‌نت</span>
+                <a href="#hero" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-400 transition-colors" title="بازگشت به بالا">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-card max-w-2xl w-full rounded-3xl border border-glass p-6 sm:p-8 space-y-6 relative max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300" id="modalContent">
+            <button id="closeModalBtn" class="absolute top-6 left-6 p-2.5 rounded-full bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white hover:bg-slate-300 dark:hover:bg-white/20 transition-colors cursor-pointer" aria-label="بستن">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- JavaScript File -->
+    <script src="app.js"></script>
+</body>
+</html>

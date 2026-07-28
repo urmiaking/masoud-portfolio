@@ -1,0 +1,14 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Environment
+*.log
+.env
+.env.local
+
+# Node modules / Build artifacts (if any)
+node_modules/
+dist/
+.cache/
