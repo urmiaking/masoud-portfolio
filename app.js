@@ -210,20 +210,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     const projectData = {
         '1': {
-            title: 'پلتفرم معاملات آنلاین طلا (شرکت اتراب)',
-            category: 'C# / .NET 10 Core & Blazor Engine',
-            date: '۱۴۰۲ - ۱۴۰۳',
-            description: 'طراحی و پیاده‌سازی سامانه جامع صرافی آنلاین و دادوستد آنلاین طلا. این سیستم امکان خرید، فروش، ثبت سفارش‌های لحظه‌ای و محاسبه دقیق قیمت مصنوعات طلا را با پایداری کامل فراهم می‌سازد.',
+            title: 'سامانه هوشمند و جامع طلا و جواهر گلدکس (GoldEx)',
+            category: 'C# 14 / .NET 10 Core, Blazor & MCP AI Engine',
+            date: '۱۴۰۴ - تاکنون (نمونه کار اصلی)',
+            description: 'طراحی، معماری و پیاده‌سازی سامانه جامع و نوآورانه گلدکس (GoldEx) ویژه مدیریت و حسابداری طلا و جواهر. این سامانه تلفیقی از دستیار صوتی و متنی هوش مصنوعی (MCP)، ویترین آنلاین اختصاصی گالری‌ها با محاسبه زنده قیمت طلا، پیش‌خوان فرماندهی بدون معطلی و فرمول‌های دقیق حسابداری زرگری است.',
+            features: [
+                'معماری چندمستأجری (Multi-Tenancy) با دیتابیس مشترک و ایزولاسیون کامل شعبات و فروشگاه‌ها',
+                'اتصال عمیق به هوش مصنوعی (Google Gemini, Claude, ChatGPT) از طریق Model Context Protocol (MCP) جهت صدور فاکتور و تحلیل تراز مالی',
+                'ویترین آنلاین اختصاصی گالری‌ها با محاسبه زنده و بلادرنگ قیمت و اجرت بر مبنای نرخ لحظه‌ای بازار',
+                'حسابداری دوطرفه و تراز طلایی-ریالی، گردش حساب مشتریان و تسویه حساب و حواله بین مشتریان',
+                'نسخه آفلاین GoldEx Mini (PWA) با قابلیت صدور فاکتور سریع و چاپ بهینه استاندارد A5',
+                'رعایت کامل اصول Clean Architecture، Domain-Driven Design (DDD) و تست‌پذیری در .NET 10'
+            ],
+            tech: ['C# 14', '.NET 10 Core', 'Blazor (Server/Wasm)', 'Clean Architecture & DDD', 'MCP (Model Context Protocol)', 'MudBlazor', 'SQL Server & EF Core', 'PWA / Mini'],
+            link: 'https://goldexsoft.ir'
+        },
+        '2': {
+            title: 'پلتفرم جامع معاملات آنلاین طلا و صرافی (شرکت اتراب)',
+            category: 'C# / .NET Core & Blazor Engine',
+            date: '۱۳۹۹ - ۱۴۰۴',
+            description: 'طراحی و پیاده‌سازی سامانه صرافی و دادوستد آنلاین طلا. این سیستم امکان خرید، فروش، ثبت سفارش‌های لحظه‌ای و محاسبه دقیق قیمت مصنوعات طلا را با امنیت بالای تراکنش‌ها فراهم ساخت (پایان پروژه در سال ۱۴۰۴).',
             features: [
                 'طراحی معماری REST API بر پایه ASP.NET Core با کارایی و امنیت بالا',
                 'پیاده‌سازی پنل کاربری و معامله با Blazor و کامپوننت‌های بهینه',
-                'محاسبه لحظه‌ای قیمت طلا با فرمول‌های پیچیده حسابداری مالی',
-                'مدیریت دیتابیس SQL Server و EF Core با نرخ تراکنش بالا بین کاربران'
+                'محاسبه لحظه‌ای قیمت طلا با فرمول‌های دقیق حسابداری مالی',
+                'مدیریت دیتابیس SQL Server و EF Core با نرخ تراکنش بالا'
             ],
-            tech: ['C# 14', '.NET 10 Core', 'ASP.NET Core Web API', 'Blazor', 'SQL Server', 'EF Core', 'REST API'],
-            link: '#'
+            tech: ['C#', '.NET Core', 'ASP.NET Core Web API', 'Blazor', 'SQL Server', 'EF Core'],
+            link: 'https://Artemisgolds.ir'
         },
-        '2': {
+        '3': {
             title: 'سامانه‌های یکپارچه بیمارستانی (HIS - بیمارستان عارفیان)',
             category: 'Clean Architecture & Enterprise .NET',
             date: '۱۴۰۰ - ۱۴۰۲',
@@ -235,9 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 'پوشش امنیتی بالاتر برای اطلاعات پزشکی بیماران'
             ],
             tech: ['C#', 'ASP.NET Core', 'Clean Architecture', 'Domain-Driven Design', 'SQL Server', 'Entity Framework Core'],
-            link: '#'
+            link: 'https://medix.arefian.ir/'
         },
-        '3': {
+        '4': {
             title: 'نرم‌افزار حسابداری گالری طلا & اپلیکیشن موبایل (طلا و جواهری فانی)',
             category: 'ASP.NET Core & Xamarin Mobile',
             date: '۱۴۰۰',
@@ -249,20 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 'مدیریت موجودی انبار به صورت آنلاین و همگام‌سازی لحظه‌ای'
             ],
             tech: ['ASP.NET Core', 'Xamarin Forms / .NET', 'C#', 'SQL Server', 'Barcode Scanning'],
-            link: '#'
-        },
-        '4': {
-            title: 'اپلیکیشن خیریه و پلتفرم IoT (چشمه جوشان کوثر & اسکای نیک)',
-            category: 'Android App & Java Socket Server',
-            date: '۱۳۹۸ - ۱۴۰۰',
-            description: 'توسعه اپلیکیشن اندرویدی خیریه با الگوریتم زیرمجموعه‌گیری و درآمدزایی به همراه پنل مدیریت + برنامه‌نویسی سوکت جاوا برای کنترل دستگاه‌های هوشمند اینترنت اشیا.',
-            features: [
-                'طراحی اپلیکیشن موبایل اندروید با قابلیت هبه و شبکه درآمدزایی خیریه',
-                'توسعه پنل ادمین وب و مدیریت تراکنش‌ها',
-                'برنامه‌نویسی سوکت پروگرمینگ در جاوا جهت مدیریت دستگاه‌های IoT',
-                'ارتباط بی‌درنگ سرور و تجهیزات سخت‌افزاری هوشمند'
-            ],
-            tech: ['Java Socket Programming', 'Android SDK', 'PHP', 'MySQL', 'IoT Protocols'],
             link: '#'
         }
     };
@@ -302,8 +304,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
-                        <div class="pt-6 border-t border-glass flex items-center justify-between">
-                            <span class="text-xs text-indigo-700 dark:text-indigo-300 font-bold">توسعه یافته توسط مسعود خدادادی</span>
+                        <div class="pt-6 border-t border-glass flex items-center justify-between flex-wrap gap-3">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-indigo-700 dark:text-indigo-300 font-bold">توسعه یافته توسط مسعود خدادادی</span>
+                                ${data.link && data.link !== '#' ? `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-500/40 flex items-center gap-1.5 transition-all"><span>مشاهده وب‌سایت (${data.link.replace(/^https?:\/\//, '').replace(/\/$/, '')})</span><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>` : ''}
+                            </div>
                             <button class="px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors cursor-pointer" onclick="document.getElementById('closeModalBtn').click()">بستن پنجره</button>
                         </div>
                     </div>
@@ -337,10 +342,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const commands = {
         'help': 'دستورات آنلاین:<br>• <b class="text-cyan-300">about</b> - درباره مسعود خدادادی<br>• <b class="text-cyan-300">education</b> - مدارک و افتخارات تحصیلی (رتبه ۱)<br>• <b class="text-cyan-300">skills</b> - مهارت‌ها و اکوسیستم .NET<br>• <b class="text-cyan-300">projects</b> - پروژه‌های شاخص<br>• <b class="text-cyan-300">contact</b> - اطلاعات تماس<br>• <b class="text-cyan-300">clear</b> - پاک کردن صفحه<br>• <b class="text-cyan-300">sudo hire</b> - دعوت به همکاری',
-        'about': 'مسعود خدادادی - توسعه‌دهنده ارشد فول‌استک دات‌نت و مهندس نرم‌افزار با بیش از ۵ سال سابقه کار تخصصی. متخصص در C# 14، .NET 10 Core، Blazor، .NET MAUI و معماری‌های Clean/Microservices.',
+        'about': 'مسعود خدادادی - توسعه‌دهنده ارشد فول‌استک دات‌نت و طراح معماری پلتفرم هوشمند طلا و جواهر گلدکس (GoldEx). متخصص در C# 14، .NET 10 Core، Blazor، .NET MAUI، معماری‌های Clean/DDD و اتصال هوش مصنوعی (MCP).',
         'education': '🎓 <b>رتبه ۱ کارشناسی ارشد</b> مهندسی نرم‌افزار دانشگاه ارومیه<br>🎓 <b>رتبه ۱ کارشناسی</b> مهندسی نرم‌افزار دانشگاه ارومیه',
-        'skills': 'Backend: C# 14, .NET 10 Core, ASP.NET Core Web API, Blazor, Razor Pages<br>Mobile/Desktop: .NET MAUI, Xamarin, WPF, WinForms<br>Architecture: Microservices, Clean Architecture, DDD, REST API<br>Databases & DevOps: SQL Server, EF Core, Docker, Kubernetes, Git',
-        'projects': '۱. پلتفرم معاملات آنلاین طلا (اتراب)<br>۲. سامانه‌های بیمارستانی HIS (عارفیان)<br>۳. نرم‌افزار حسابداری گالری طلا و موبایل (فانی)<br>۴. اپلیکیشن خیریه و IoT (چشمه جوشان & اسکای نیک)',
+        'skills': 'Backend: C# 14, .NET 10 Core, ASP.NET Core Web API, Blazor, Razor Pages<br>AI & Protocols: Model Context Protocol (MCP), Gemini AI, Claude AI Integration<br>Mobile/Desktop: .NET MAUI, Xamarin, WPF, WinForms<br>Architecture: Microservices, Clean Architecture, DDD, Multi-Tenancy, REST API<br>Databases & DevOps: SQL Server, EF Core, Docker, Kubernetes, Git',
+        'projects': '۱. <b class="text-amber-300">سامانه جامع طلا و جواهر گلدکس (GoldEx)</b> [نمونه کار اصلی: <a href="https://goldexsoft.ir" target="_blank" class="text-cyan-400 underline">goldexsoft.ir</a> - ۱۴۰۴ تا کنون]<br>۲. <b>پلتفرم معاملات آنلاین طلا (اتراب)</b> [<a href="https://Artemisgolds.ir" target="_blank" class="text-cyan-400 underline">Artemisgolds.ir</a> - ۱۳۹۹ تا ۱۴۰۴]<br>۳. <b>سامانه‌های بیمارستانی HIS (عارفیان)</b> [<a href="https://medix.arefian.ir/" target="_blank" class="text-cyan-400 underline">medix.arefian.ir</a> - ۱۴۰۰ تا ۱۴۰۲]<br>۴. <b>نرم‌افزار حسابداری گالری طلا و موبایل (فانی)</b> [۱۴۰۰]',
         'contact': 'Email: masoud.xpress@gmail.com<br>آماده گفتگو جهت پروژه‌های سازمانی، مشاوره معماری نرم‌افزار یا همکاری ارشد.',
         'sudo hire': '<span class="text-emerald-400 font-bold">🎉 فوق‌العاده است! لطفاً از فرم تماس پایین صفحه پیام بفرستید یا مستقیم ایمیل بزنید تا جلسه گفتگو را تنظیم کنیم.</span>'
     };

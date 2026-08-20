@@ -1,10 +1,14 @@
-version: '3.8'
+networks:
+  goldex-network:
+    external: true
 
 services:
   masoud-portfolio:
     build: .
     container_name: masoud_portfolio_app
     restart: always
+    networks:
+      - goldex-network
     ports:
       - "8080:80"
     environment:
