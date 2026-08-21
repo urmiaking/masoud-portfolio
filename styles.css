@@ -335,6 +335,10 @@ html.dark .skill-tab:not(.active):hover, html.dark .project-filter:not(.active):
     transform: translateY(-1px);
 }
 
+#mainAboutPhoto {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* Mobile Menu Animation */
 #mobileMenu {
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
