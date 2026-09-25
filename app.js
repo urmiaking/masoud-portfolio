@@ -225,6 +225,38 @@ document.addEventListener('DOMContentLoaded', () => {
             tech: ['C# 14', '.NET 10 Core', 'Blazor (Server/Wasm)', 'Clean Architecture & DDD', 'MCP (Model Context Protocol)', 'MudBlazor', 'SQL Server & EF Core', 'PWA / Mini'],
             link: 'https://goldexsoft.ir'
         },
+        'qirato': {
+            title: 'دستیار تخصصی و هوشمند زرگری و بازار طلا (قیراط - Qirato)',
+            category: 'Android Native (Jetpack Compose / Kotlin) & Clean Architecture',
+            date: '۱۴۰۴ - تاکنون (پروژه فعال)',
+            description: 'طراحی، معماری و پیاده‌سازی اپلیکیشن نیتیو اندروید و پلتفرم تخصصی قیراط (Qirato) ویژه طلافروشان، بنکداران، کیفی‌ها و معامله‌گران بازار طلا. این سیستم با معماری Local-First و ۱۰۰٪ آفلاین، امکاناتی نظیر استعلام لحظه‌ای و سه‌گانه مظنه زنده، صدور فاکتور رسمی ماده ۲۶ اتحادیه با خروجی استاندارد PDF، تحلیل تخصصی حباب انواع مسکوکات، تبدیل عیار و ثبت اسناد دفتر معین زرگری را بدون نیاز به فیلترشکن فراهم می‌سازد.',
+            features: [
+                'توسعه نیتیو اندروید با مدرن‌ترین فریمورک رسمی گوگل (Jetpack Compose)، زبان Kotlin و رعایت اصول Clean Architecture & MVI',
+                'معماری کاملاً محلی (Local-First) با دیتابیس داخلی ایمن (Room / SQLite) با قابلیت کارکرد ۱۰۰٪ آفلاین و بدون وابستگی به اینترنت',
+                'موتور استعلام سه‌گانه و بلادرنگ نرخ طلا، مثقال و مسکوکات از منابع TGJU، طلا.آی‌آر و آی‌سیگنال با الگوریتم سوییچ خودکار و محاسبه برابری حواله درهم',
+                'سیستم صدور فاکتور رسمی دوطرفه و تهاتر با کسر نگین، اجرت ساخت و احتساب مالیات ارزش‌افزوده ۱۰٪ روی سود و اجرت طبق ماده ۲۶ قانون مالیات اتحادیه',
+                'تولید خودکار اسناد استاندارد فاکتور PDF جهت اشتراک‌گذاری سریع در پیام‌رسان‌ها (ایتا، بله، تلگرام، واتساپ) و چاپ با پرینترهای حرارتی و بلوتوثی',
+                'تحلیل‌گر تخصصی حباب سکه امامی، بهار آزادی، نیم، ربع و گرمی به همراه فرمول‌های دقیق تبدیل عیار و محاسبات ری‌گیری و ذوب طلا'
+            ],
+            tech: ['Kotlin', 'Jetpack Compose', 'Clean Architecture', 'Room DB / SQLite', 'Coroutines & Flow', 'Material 3', 'Node.js / Docker', 'Nginx'],
+            link: 'https://qirato.ir'
+        },
+        '5': {
+            title: 'دستیار تخصصی و هوشمند زرگری و بازار طلا (قیراط - Qirato)',
+            category: 'Android Native (Jetpack Compose / Kotlin) & Clean Architecture',
+            date: '۱۴۰۴ - تاکنون (پروژه فعال)',
+            description: 'طراحی، معماری و پیاده‌سازی اپلیکیشن نیتیو اندروید و پلتفرم تخصصی قیراط (Qirato) ویژه طلافروشان، بنکداران، کیفی‌ها و معامله‌گران بازار طلا. این سیستم با معماری Local-First و ۱۰۰٪ آفلاین، امکاناتی نظیر استعلام لحظه‌ای و سه‌گانه مظنه زنده، صدور فاکتور رسمی ماده ۲۶ اتحادیه با خروجی استاندارد PDF، تحلیل تخصصی حباب انواع مسکوکات، تبدیل عیار و ثبت اسناد دفتر معین زرگری را بدون نیاز به فیلترشکن فراهم می‌سازد.',
+            features: [
+                'توسعه نیتیو اندروید با مدرن‌ترین فریمورک رسمی گوگل (Jetpack Compose)، زبان Kotlin و رعایت اصول Clean Architecture & MVI',
+                'معماری کاملاً محلی (Local-First) با دیتابیس داخلی ایمن (Room / SQLite) با قابلیت کارکرد ۱۰۰٪ آفلاین و بدون وابستگی به اینترنت',
+                'موتور استعلام سه‌گانه و بلادرنگ نرخ طلا، مثقال و مسکوکات از منابع TGJU، طلا.آی‌آر و آی‌سیگنال با الگوریتم سوییچ خودکار و محاسبه برابری حواله درهم',
+                'سیستم صدور فاکتور رسمی دوطرفه و تهاتر با کسر نگین، اجرت ساخت و احتساب مالیات ارزش‌افزوده ۱۰٪ روی سود و اجرت طبق ماده ۲۶ قانون مالیات اتحادیه',
+                'تولید خودکار اسناد استاندارد فاکتور PDF جهت اشتراک‌گذاری سریع در پیام‌رسان‌ها (ایتا، بله، تلگرام، واتساپ) و چاپ با پرینترهای حرارتی و بلوتوثی',
+                'تحلیل‌گر تخصصی حباب سکه امامی، بهار آزادی، نیم، ربع و گرمی به همراه فرمول‌های دقیق تبدیل عیار و محاسبات ری‌گیری و ذوب طلا'
+            ],
+            tech: ['Kotlin', 'Jetpack Compose', 'Clean Architecture', 'Room DB / SQLite', 'Coroutines & Flow', 'Material 3', 'Node.js / Docker', 'Nginx'],
+            link: 'https://qirato.ir'
+        },
         '2': {
             title: 'پلتفرم جامع معاملات آنلاین طلا و صرافی (شرکت اتراب)',
             category: 'C# / .NET Core & Blazor Engine',
@@ -345,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'about': 'مسعود خدادادی - توسعه‌دهنده ارشد فول‌استک دات‌نت و طراح معماری پلتفرم هوشمند طلا و جواهر گلدکس (GoldEx). متخصص در C# 14، .NET 10 Core، Blazor، .NET MAUI، معماری‌های Clean/DDD و اتصال هوش مصنوعی (MCP).',
         'education': '🎓 <b>رتبه ۱ کارشناسی ارشد</b> مهندسی نرم‌افزار دانشگاه ارومیه<br>🎓 <b>رتبه ۱ کارشناسی</b> مهندسی نرم‌افزار دانشگاه ارومیه',
         'skills': 'Backend: C# 14, .NET 10 Core, ASP.NET Core Web API, Blazor, Razor Pages<br>AI & Protocols: Model Context Protocol (MCP), Gemini AI, Claude AI Integration<br>Mobile/Desktop: .NET MAUI, Xamarin, WPF, WinForms<br>Architecture: Microservices, Clean Architecture, DDD, Multi-Tenancy, REST API<br>Databases & DevOps: SQL Server, EF Core, Docker, Kubernetes, Git',
-        'projects': '۱. <b class="text-amber-300">سامانه جامع طلا و جواهر گلدکس (GoldEx)</b> [نمونه کار اصلی: <a href="https://goldexsoft.ir" target="_blank" class="text-cyan-400 underline">goldexsoft.ir</a> - ۱۴۰۴ تا کنون]<br>۲. <b>پلتفرم معاملات آنلاین طلا (اتراب)</b> [<a href="https://Artemisgolds.ir" target="_blank" class="text-cyan-400 underline">Artemisgolds.ir</a> - ۱۳۹۹ تا ۱۴۰۴]<br>۳. <b>سامانه‌های بیمارستانی HIS (عارفیان)</b> [<a href="https://medix.arefian.ir/" target="_blank" class="text-cyan-400 underline">medix.arefian.ir</a> - ۱۴۰۰ تا ۱۴۰۲]<br>۴. <b>نرم‌افزار حسابداری گالری طلا و موبایل (فانی)</b> [۱۴۰۰]',
+        'projects': '۱. <b class="text-amber-300">سامانه جامع طلا و جواهر گلدکس (GoldEx)</b> [نمونه کار اصلی: <a href="https://goldexsoft.ir" target="_blank" class="text-cyan-400 underline">goldexsoft.ir</a> - ۱۴۰۴ تا کنون]<br>۲. <b class="text-yellow-300">دستیار تخصصی و هوشمند زرگری قیراط (Qirato)</b> [<a href="https://qirato.ir" target="_blank" class="text-cyan-400 underline">qirato.ir</a> - ۱۴۰۴ تا کنون]<br>۳. <b>پلتفرم معاملات آنلاین طلا (اتراب)</b> [<a href="https://Artemisgolds.ir" target="_blank" class="text-cyan-400 underline">Artemisgolds.ir</a> - ۱۳۹۹ تا ۱۴۰۴]<br>۴. <b>سامانه‌های بیمارستانی HIS (عارفیان)</b> [<a href="https://medix.arefian.ir/" target="_blank" class="text-cyan-400 underline">medix.arefian.ir</a> - ۱۴۰۰ تا ۱۴۰۲]<br>۵. <b>نرم‌افزار حسابداری گالری طلا و موبایل (فانی)</b> [۱۴۰۰]',
         'contact': 'Email: masoud.xpress@gmail.com<br>آماده گفتگو جهت پروژه‌های سازمانی، مشاوره معماری نرم‌افزار یا همکاری ارشد.',
         'sudo hire': '<span class="text-emerald-400 font-bold">🎉 فوق‌العاده است! لطفاً از فرم تماس پایین صفحه پیام بفرستید یا مستقیم ایمیل بزنید تا جلسه گفتگو را تنظیم کنیم.</span>'
     };

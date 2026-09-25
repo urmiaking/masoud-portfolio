@@ -5,11 +5,12 @@ networks:
 services:
   masoud-portfolio:
     build: .
-    container_name: masoud_portfolio_app
+    image: reg.goldexsoft.ir/masoud-portfolio:latest
+    container_name: masoud-portfolio
     restart: always
     networks:
       - goldex-network
-    ports:
-      - "8080:80"
+    expose:
+      - "80"
     environment:
       - NODE_ENV=production
