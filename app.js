@@ -284,84 +284,82 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             tech: ['C#', 'ASP.NET Core', 'Clean Architecture', 'Domain-Driven Design', 'SQL Server', 'Entity Framework Core'],
             link: 'https://medix.arefian.ir/'
-        },
-        '4': {
-            title: 'نرم‌افزار حسابداری گالری طلا & اپلیکیشن موبایل (طلا و جواهری فانی)',
-            category: 'ASP.NET Core & Xamarin Mobile',
-            date: '۱۴۰۰',
-            description: 'پروژه فریلنسری شامل نرم‌افزار جامع مدیریت موجودی، فاکتورسازی آنلاین و محاسبه لحظه‌ای قیمت طلا به همراه اپلیکیشن موبایل برای بارکدخوانی انبار.',
-            features: [
-                'صدور فاکتور رسمی و محاسبه خودکار مالیات، اجرت و قیمت لحظه‌ای طلا',
-                'توسعه اپلیکیشن موبایل Xamarin برای اسکن بارکد محصولات و انبارگردانی سریع',
-                'سیستم گزارش‌گیری مالی دقیق تحت وب بر پایه ASP.NET Core',
-                'مدیریت موجودی انبار به صورت آنلاین و همگام‌سازی لحظه‌ای'
-            ],
-            tech: ['ASP.NET Core', 'Xamarin Forms / .NET', 'C#', 'SQL Server', 'Barcode Scanning'],
-            link: '#'
+        }
+    };
+
+    window.openProjectModal = function(projectId) {
+        const modal = document.getElementById('projectModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalBody = document.getElementById('modalBody');
+        const data = projectData[projectId];
+
+        if (!data || !modal || !modalBody || !modalContent) {
+            console.warn('Could not open modal for project:', projectId);
+            return;
+        }
+
+        modalBody.innerHTML = `
+            <div class="space-y-6 text-right">
+                <div class="space-y-2">
+                    <span class="text-xs font-bold text-cyan-700 dark:text-cyan-400 block">${data.category} • ${data.date}</span>
+                    <h3 class="text-2xl font-black text-main">${data.title}</h3>
+                </div>
+
+                <p class="text-muted text-sm sm:text-base leading-relaxed text-justify">${data.description}</p>
+
+                <div class="space-y-3">
+                    <h4 class="font-bold text-sm text-indigo-700 dark:text-indigo-400">ویژگی‌ها و معماری پروژه:</h4>
+                    <ul class="text-xs sm:text-sm text-muted space-y-2 list-disc list-inside leading-relaxed text-justify">
+                        ${data.features.map(f => `<li>${f}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <h4 class="font-bold text-sm text-cyan-700 dark:text-cyan-400">تکنولوژی‌های استفاده شده:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${data.tech.map(t => `<span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">${t}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-glass flex items-center justify-between flex-wrap gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-indigo-700 dark:text-indigo-300 font-bold">توسعه یافته توسط مسعود خدادادی</span>
+                        ${data.link && data.link !== '#' ? `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-500/40 flex items-center gap-1.5 transition-all"><span>مشاهده وب‌سایت (${data.link.replace(/^https?:\/\//, '').replace(/\/$/, '')})</span><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>` : ''}
+                    </div>
+                    <button class="px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors cursor-pointer" onclick="window.closeProjectModal()">بستن پنجره</button>
+                </div>
+            </div>
+        `;
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+    };
+
+    window.closeProjectModal = function() {
+        const modal = document.getElementById('projectModal');
+        const modalContent = document.getElementById('modalContent');
+        if (modal && modalContent) {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
         }
     };
 
     const modal = document.getElementById('projectModal');
-    const modalContent = document.getElementById('modalContent');
-    const modalBody = document.getElementById('modalBody');
     const closeModalBtn = document.getElementById('closeModalBtn');
-    const openModalBtns = document.querySelectorAll('.open-modal-btn');
 
-    openModalBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.open-modal-btn');
+        if (btn) {
             const projectId = btn.getAttribute('data-project');
-            const data = projectData[projectId];
-
-            if (data) {
-                modalBody.innerHTML = `
-                    <div class="space-y-6 text-right">
-                        <div class="space-y-2">
-                            <span class="text-xs font-bold text-cyan-700 dark:text-cyan-400 block">${data.category} • ${data.date}</span>
-                            <h3 class="text-2xl font-black text-main">${data.title}</h3>
-                        </div>
-
-                        <p class="text-muted text-sm sm:text-base leading-relaxed text-justify">${data.description}</p>
-
-                        <div class="space-y-3">
-                            <h4 class="font-bold text-sm text-indigo-700 dark:text-indigo-400">ویژگی‌ها و معماری پروژه:</h4>
-                            <ul class="text-xs sm:text-sm text-muted space-y-2 list-disc list-inside leading-relaxed text-justify">
-                                ${data.features.map(f => `<li>${f}</li>`).join('')}
-                            </ul>
-                        </div>
-
-                        <div class="space-y-3 pt-2">
-                            <h4 class="font-bold text-sm text-cyan-700 dark:text-cyan-400">تکنولوژی‌های استفاده شده:</h4>
-                            <div class="flex flex-wrap gap-2">
-                                ${data.tech.map(t => `<span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">${t}</span>`).join('')}
-                            </div>
-                        </div>
-
-                        <div class="pt-6 border-t border-glass flex items-center justify-between flex-wrap gap-3">
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs text-indigo-700 dark:text-indigo-300 font-bold">توسعه یافته توسط مسعود خدادادی</span>
-                                ${data.link && data.link !== '#' ? `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-500/40 flex items-center gap-1.5 transition-all"><span>مشاهده وب‌سایت (${data.link.replace(/^https?:\/\//, '').replace(/\/$/, '')})</span><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>` : ''}
-                            </div>
-                            <button class="px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors cursor-pointer" onclick="document.getElementById('closeModalBtn').click()">بستن پنجره</button>
-                        </div>
-                    </div>
-                `;
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }
-        });
+            window.openProjectModal(projectId);
+        }
     });
 
-    closeModalBtn?.addEventListener('click', closeModal);
+    closeModalBtn?.addEventListener('click', window.closeProjectModal);
     modal?.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
+        if (e.target === modal) window.closeProjectModal();
     });
-
-    function closeModal() {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        modalContent.classList.remove('scale-100');
-        modalContent.classList.add('scale-95');
-    }
 
     // =========================================================================
     // 8. Interactive Developer CLI Terminal Emulator
@@ -374,10 +372,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const commands = {
         'help': 'دستورات آنلاین:<br>• <b class="text-cyan-300">about</b> - درباره مسعود خدادادی<br>• <b class="text-cyan-300">education</b> - مدارک و افتخارات تحصیلی (رتبه ۱)<br>• <b class="text-cyan-300">skills</b> - مهارت‌ها و اکوسیستم .NET<br>• <b class="text-cyan-300">projects</b> - پروژه‌های شاخص<br>• <b class="text-cyan-300">contact</b> - اطلاعات تماس<br>• <b class="text-cyan-300">clear</b> - پاک کردن صفحه<br>• <b class="text-cyan-300">sudo hire</b> - دعوت به همکاری',
-        'about': 'مسعود خدادادی - توسعه‌دهنده ارشد فول‌استک دات‌نت و طراح معماری پلتفرم هوشمند طلا و جواهر گلدکس (GoldEx). متخصص در C# 14، .NET 10 Core، Blazor، .NET MAUI، معماری‌های Clean/DDD و اتصال هوش مصنوعی (MCP).',
+        'about': 'مسعود خدادادی - توسعه‌دهنده ارشد فول‌استک دات‌نت و طراح معماری پلتفرم هوشمند طلا و جواهر گلدکس (GoldEx). متخصص در C# 14، .NET 10 Core، Blazor، .NET MAUI، Jetpack Compose، معماری‌های Clean/DDD و اتصال هوش مصنوعی (MCP).',
         'education': '🎓 <b>رتبه ۱ کارشناسی ارشد</b> مهندسی نرم‌افزار دانشگاه ارومیه<br>🎓 <b>رتبه ۱ کارشناسی</b> مهندسی نرم‌افزار دانشگاه ارومیه',
-        'skills': 'Backend: C# 14, .NET 10 Core, ASP.NET Core Web API, Blazor, Razor Pages<br>AI & Protocols: Model Context Protocol (MCP), Gemini AI, Claude AI Integration<br>Mobile/Desktop: .NET MAUI, Xamarin, WPF, WinForms<br>Architecture: Microservices, Clean Architecture, DDD, Multi-Tenancy, REST API<br>Databases & DevOps: SQL Server, EF Core, Docker, Kubernetes, Git',
-        'projects': '۱. <b class="text-amber-300">سامانه جامع طلا و جواهر گلدکس (GoldEx)</b> [نمونه کار اصلی: <a href="https://goldexsoft.ir" target="_blank" class="text-cyan-400 underline">goldexsoft.ir</a> - ۱۴۰۴ تا کنون]<br>۲. <b class="text-yellow-300">دستیار تخصصی و هوشمند زرگری قیراط (Qirato)</b> [<a href="https://qirato.ir" target="_blank" class="text-cyan-400 underline">qirato.ir</a> - ۱۴۰۴ تا کنون]<br>۳. <b>پلتفرم معاملات آنلاین طلا (اتراب)</b> [<a href="https://Artemisgolds.ir" target="_blank" class="text-cyan-400 underline">Artemisgolds.ir</a> - ۱۳۹۹ تا ۱۴۰۴]<br>۴. <b>سامانه‌های بیمارستانی HIS (عارفیان)</b> [<a href="https://medix.arefian.ir/" target="_blank" class="text-cyan-400 underline">medix.arefian.ir</a> - ۱۴۰۰ تا ۱۴۰۲]<br>۵. <b>نرم‌افزار حسابداری گالری طلا و موبایل (فانی)</b> [۱۴۰۰]',
+        'skills': 'Backend: C# 14, .NET 10 Core, ASP.NET Core Web API, Blazor, Razor Pages<br>AI & Protocols: Model Context Protocol (MCP), Gemini AI, Claude AI Integration<br>Mobile: Jetpack Compose & Kotlin (Android Native), .NET MAUI, Xamarin<br>Architecture: Microservices, Clean Architecture, DDD, Multi-Tenancy, REST API<br>Databases & DevOps: SQL Server, EF Core, Docker, Kubernetes, Git',
+        'projects': '۱. <b class="text-amber-300">سامانه جامع طلا و جواهر گلدکس (GoldEx)</b> [نمونه کار اصلی: <a href="https://goldexsoft.ir" target="_blank" class="text-cyan-400 underline">goldexsoft.ir</a> - ۱۴۰۴ تا کنون]<br>۲. <b class="text-yellow-300">دستیار تخصصی و هوشمند زرگری قیراط (Qirato)</b> [<a href="https://qirato.ir" target="_blank" class="text-cyan-400 underline">qirato.ir</a> - ۱۴۰۴ تا کنون]<br>۳. <b>پلتفرم معاملات آنلاین طلا (اتراب)</b> [<a href="https://Artemisgolds.ir" target="_blank" class="text-cyan-400 underline">Artemisgolds.ir</a> - ۱۳۹۹ تا ۱۴۰۴]<br>۴. <b>سامانه‌های بیمارستانی HIS (عارفیان)</b> [<a href="https://medix.arefian.ir/" target="_blank" class="text-cyan-400 underline">medix.arefian.ir</a> - ۱۴۰۰ تا ۱۴۰۲]',
         'contact': 'Email: masoud.xpress@gmail.com<br>آماده گفتگو جهت پروژه‌های سازمانی، مشاوره معماری نرم‌افزار یا همکاری ارشد.',
         'sudo hire': '<span class="text-emerald-400 font-bold">🎉 فوق‌العاده است! لطفاً از فرم تماس پایین صفحه پیام بفرستید یا مستقیم ایمیل بزنید تا جلسه گفتگو را تنظیم کنیم.</span>'
     };

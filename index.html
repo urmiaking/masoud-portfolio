@@ -38,7 +38,7 @@
     </script>
 
     <!-- CSS Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2.2">
 </head>
 <body class="bg-dark text-main antialiased selection:bg-indigo-500 selection:text-white">
 
@@ -384,7 +384,7 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3 group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">توسعه مالتی‌پلتفرم</h3>
                         <p class="text-muted text-sm leading-relaxed text-justify">
-                            توسعه جامع سیستم‌های وب، موبایل (.NET MAUI/Xamarin) و دسکتاپ (WPF) با بالاترین هماهنگی و یکپارچگی داده‌ها.
+                            توسعه جامع سیستم‌های وب و اپلیکیشن‌های موبایل (.NET MAUI / Jetpack Compose) با بالاترین هماهنگی و یکپارچگی داده‌ها.
                         </p>
                     </div>
                 </div>
@@ -503,17 +503,6 @@
                         </div>
                         <span class="font-bold text-sm">.NET MAUI / Xamarin</span>
                         <span class="text-xs text-muted font-bold">توسعه موبایل</span>
-                    </div>
-
-                    <!-- WPF & WinForms -->
-                    <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-slate-500/50 transition-all cursor-pointer group" data-category="mobile">
-                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 text-slate-700 dark:text-slate-300 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
-                            WPF
-                        </div>
-                        <span class="font-bold text-sm">WPF & WinForms</span>
-                        <span class="text-xs text-muted font-bold">نرم‌افزار دسکتاپ</span>
-                    </div>
-
                     <!-- Docker & Kubernetes -->
                     <div class="skill-card glass-card p-5 rounded-2xl border border-glass flex flex-col items-center justify-center text-center gap-3 hover:-translate-y-1 hover:border-blue-500/50 transition-all cursor-pointer group" data-category="database">
                         <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-mono font-bold text-lg group-hover:scale-110 transition-transform">
@@ -602,7 +591,7 @@
                             </div>
 
                             <div class="pt-4 border-t border-glass-subtle flex items-center justify-between flex-wrap gap-3">
-                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="1">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="1" onclick="openProjectModal('1')">
                                     <span>مشاهده جزئیات کامل فنی</span>
                                     <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -636,7 +625,7 @@
                                 <div class="w-full max-w-md p-4 rounded-xl bg-[#0f172a]/95 border border-yellow-500/30 font-mono text-xs text-yellow-300 shadow-2xl backdrop-blur-sm">
                                     <div class="flex items-center justify-between pb-2 border-b border-white/10 text-slate-400">
                                         <span class="text-yellow-300 font-bold flex items-center gap-1.5">
-                                            <span>Qirato Native Android & Market Suite</span>
+                                             <span>Qirato Native Android & Market Suite</span>
                                         </span>
                                         <span class="text-emerald-400 font-semibold">● 100% Offline Local-First</span>
                                     </div>
@@ -667,7 +656,7 @@
                             </div>
 
                             <div class="pt-4 border-t border-glass-subtle flex items-center justify-between flex-wrap gap-3">
-                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="qirato">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="qirato" onclick="openProjectModal('qirato')">
                                     <span>مشاهده جزئیات کامل فنی</span>
                                     <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -720,7 +709,7 @@
                             </div>
 
                             <div class="pt-4 border-t border-glass-subtle flex items-center justify-between flex-wrap gap-3">
-                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="2">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="2" onclick="openProjectModal('2')">
                                     <span>مشاهده جزئیات کامل فنی</span>
                                     <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -736,7 +725,7 @@
                         </div>
                     </div>
 
-                    <!-- Project Card 3: Arefian HIS -->
+                    <!-- Project Card 4: Arefian HIS -->
                     <div class="project-card glass-card rounded-3xl border border-glass overflow-hidden hover:-translate-y-2 transition-all duration-300 group" data-category="backend">
                         <div class="relative h-64 overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-blue-900 p-6 flex flex-col justify-between border-b border-white/10">
                             <div class="flex items-center justify-between z-10">
@@ -773,7 +762,7 @@
                             </div>
 
                             <div class="pt-4 border-t border-glass-subtle flex items-center justify-between flex-wrap gap-3">
-                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="3">
+                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="3" onclick="openProjectModal('3')">
                                     <span>مشاهده جزئیات کامل فنی</span>
                                     <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -785,52 +774,6 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                     </svg>
                                 </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 4: Fani Jewelry -->
-                    <div class="project-card glass-card rounded-3xl border border-glass overflow-hidden hover:-translate-y-2 transition-all duration-300 group" data-category="mobile">
-                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-rose-950 via-slate-900 to-purple-900 p-6 flex flex-col justify-between border-b border-white/10">
-                            <div class="flex items-center justify-between z-10">
-                                <span class="px-3 py-1.5 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold border border-rose-400/40">طلا و جواهری فانی (فریلنس)</span>
-                                <span class="text-xs text-slate-300 font-bold">۱۴۰۰</span>
-                            </div>
-                            
-                            <div class="my-auto flex justify-center items-center">
-                                <div class="w-full max-w-md p-4 rounded-xl bg-[#0f172a] border border-white/10 font-mono text-xs text-rose-300 shadow-2xl">
-                                    <div class="flex items-center justify-between pb-2 border-b border-white/10 text-slate-400">
-                                        <span>Fani Gallery ERP & Mobile</span>
-                                        <span class="text-amber-400">Barcode Scanning</span>
-                                    </div>
-                                    <p class="pt-2 text-slate-200">ASP.NET Core Web + Xamarin Mobile Scanner</p>
-                                    <p class="text-cyan-400">Live Gold Price Calculation Engine</p>
-                                </div>
-                            </div>
-
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
-                        </div>
-
-                        <!-- Details -->
-                        <div class="p-8 space-y-4">
-                            <h3 class="text-2xl font-bold group-hover:text-indigo-600 dark:group-hover:text-cyan-400 transition-colors">نرم‌افزار حسابداری گالری طلا و اپلیکیشن بارکدخوان</h3>
-                            <p class="text-muted text-sm leading-relaxed text-justify">
-                                سیستم جامع تحت وب برای صدور فاکتور رسمی و محاسبه آنلاین قیمت طلا + اپلیکیشن موبایل Xamarin جهت انبارگردانی سریع با بارکد.
-                            </p>
-
-                            <div class="flex flex-wrap gap-2 pt-2">
-                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">ASP.NET Core</span>
-                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">Xamarin Mobile</span>
-                                <span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">SQL Server</span>
-                            </div>
-
-                            <div class="pt-4 border-t border-glass-subtle flex items-center justify-between">
-                                <button class="open-modal-btn text-sm font-bold text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer" data-project="4">
-                                    <span>مشاهده جزئیات کامل فنی</span>
-                                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                    </svg>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1150,6 +1093,6 @@
     <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
 
     <!-- JavaScript File -->
-    <script src="app.js"></script>
+    <script src="app.js?v=2.2"></script>
 </body>
 </html>
