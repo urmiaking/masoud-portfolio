@@ -1,583 +1,271 @@
-/**
- * Masoud Khodadadi - Full-Stack .NET Engineer Portfolio JS Logic
- * Smooth Navigation, Scroll Reveal Animations & Vazirmatn UI Enhancements
- */
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // =========================================================================
-    // 1. Theme Switcher (Dark Mode / Light Mode)
-    // =========================================================================
-    const themeToggleBtn = document.getElementById('themeToggle');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    const htmlElement = document.documentElement;
-
-    const savedTheme = localStorage.getItem('mk_portfolio_theme') || 'dark';
-    setTheme(savedTheme);
-
-    themeToggleBtn.addEventListener('click', () => {
-        const currentTheme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-    });
-
-    function setTheme(theme) {
-        if (theme === 'dark') {
-            htmlElement.classList.add('dark');
-            htmlElement.classList.remove('light');
-            sunIcon.classList.remove('hidden');
-            moonIcon.classList.add('hidden');
-        } else {
-            htmlElement.classList.remove('dark');
-            htmlElement.classList.add('light');
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.remove('hidden');
-        }
-        localStorage.setItem('mk_portfolio_theme', theme);
-    }
-
-    // =========================================================================
-    // 2. Smooth Navigation Scroll & Active Section Highlighting
-    // =========================================================================
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section[id]');
-
-    // Smooth Scroll Click Handler
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Active Section Intersection Observer
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const activeId = entry.target.getAttribute('id');
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === `#${activeId}`) {
-                        link.classList.add('active-nav');
-                    } else {
-                        link.classList.remove('active-nav');
-                    }
-                });
-            }
-        });
-    }, { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" });
-
-    sections.forEach(section => sectionObserver.observe(section));
-
-    // =========================================================================
-    // 3. Scroll Reveal Micro-Animations (Fade Up)
-    // =========================================================================
-    const revealElements = document.querySelectorAll('.glass-card, .project-card, .skill-card, .counter, section h2');
-    revealElements.forEach(el => el.classList.add('reveal-on-scroll'));
-
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-            }
-        });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
-
-    // =========================================================================
-    // 4. Dynamic Typing Text Effect (Hero Section)
-    // =========================================================================
-    const typedRoleElement = document.getElementById('typedRole');
-    const roles = [
-        'توسعه‌دهنده ارشد فول‌استک .NET',
-        'رتبه ۱ ارشد مهندسی نرم‌افزار دانشگاه ارومیه',
-        'معمار سیستم‌های Clean Architecture & DDD',
-        'متخصص C#، .NET 10، Blazor و .NET MAUI'
-    ];
-    let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 100;
-
-    function typeEffect() {
-        const currentRole = roles[roleIndex];
-
-        if (isDeleting) {
-            typedRoleElement.textContent = currentRole.substring(0, charIndex - 1);
-            charIndex--;
-            typingSpeed = 40;
-        } else {
-            typedRoleElement.textContent = currentRole.substring(0, charIndex + 1);
-            charIndex++;
-            typingSpeed = 80;
-        }
-
-        if (!isDeleting && charIndex === currentRole.length) {
-            isDeleting = true;
-            typingSpeed = 2200;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            roleIndex = (roleIndex + 1) % roles.length;
-            typingSpeed = 400;
-        }
-
-        setTimeout(typeEffect, typingSpeed);
-    }
-
-    if (typedRoleElement) {
-        typeEffect();
-    }
-
-    // =========================================================================
-    // 5. Stats Counter Animation
-    // =========================================================================
-    const counters = document.querySelectorAll('.counter');
-    let animated = false;
-
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !animated) {
-                animated = true;
-                counters.forEach(counter => {
-                    const target = parseFloat(counter.getAttribute('data-target'));
-                    const duration = 1500;
-                    const stepTime = 25;
-                    const steps = duration / stepTime;
-                    const increment = target / steps;
-                    let current = 0;
-
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            current = target;
-                            clearInterval(timer);
-                        }
-
-                        if (target === 1) {
-                            counter.textContent = 'رتبه ۱';
-                        } else if (target === 100) {
-                            counter.textContent = '۱۰۰٪';
-                        } else {
-                            counter.textContent = '+' + Math.floor(current);
-                        }
-                    }, stepTime);
-                });
-            }
-        });
-    }, { threshold: 0.5 });
-
-    const statsContainer = document.querySelector('.counter')?.parentElement?.parentElement;
-    if (statsContainer) {
-        counterObserver.observe(statsContainer);
-    }
-
-    // =========================================================================
-    // 6. Skills Matrix Filter Tabs
-    // =========================================================================
-    const skillTabs = document.querySelectorAll('.skill-tab');
-    const skillCards = document.querySelectorAll('.skill-card');
-
-    skillTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            skillTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            const filter = tab.getAttribute('data-filter');
-
-            skillCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {
-                    card.style.display = 'flex';
-                    card.classList.add('animate-fade-in');
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-
-    // =========================================================================
-    // 7. Project Modal Details Data & Logic
-    // =========================================================================
-    const projectData = {
-        '1': {
-            title: 'سامانه هوشمند و جامع طلا و جواهر گلدکس (GoldEx)',
-            category: 'C# 14 / .NET 10 Core, Blazor & MCP AI Engine',
-            date: '۱۴۰۴ - تاکنون (نمونه کار اصلی)',
-            description: 'طراحی، معماری و پیاده‌سازی سامانه جامع و نوآورانه گلدکس (GoldEx) ویژه مدیریت و حسابداری طلا و جواهر. این سامانه تلفیقی از دستیار صوتی و متنی هوش مصنوعی (MCP)، ویترین آنلاین اختصاصی گالری‌ها با محاسبه زنده قیمت طلا، پیش‌خوان فرماندهی بدون معطلی و فرمول‌های دقیق حسابداری زرگری است.',
-            features: [
-                'معماری چندمستأجری (Multi-Tenancy) با دیتابیس مشترک و ایزولاسیون کامل شعبات و فروشگاه‌ها',
-                'اتصال عمیق به هوش مصنوعی (Google Gemini, Claude, ChatGPT) از طریق Model Context Protocol (MCP) جهت صدور فاکتور و تحلیل تراز مالی',
-                'ویترین آنلاین اختصاصی گالری‌ها با محاسبه زنده و بلادرنگ قیمت و اجرت بر مبنای نرخ لحظه‌ای بازار',
-                'حسابداری دوطرفه و تراز طلایی-ریالی، گردش حساب مشتریان و تسویه حساب و حواله بین مشتریان',
-                'نسخه آفلاین GoldEx Mini (PWA) با قابلیت صدور فاکتور سریع و چاپ بهینه استاندارد A5',
-                'رعایت کامل اصول Clean Architecture، Domain-Driven Design (DDD) و تست‌پذیری در .NET 10'
-            ],
-            tech: ['C# 14', '.NET 10 Core', 'Blazor (Server/Wasm)', 'Clean Architecture & DDD', 'MCP (Model Context Protocol)', 'MudBlazor', 'SQL Server & EF Core', 'PWA / Mini'],
-            link: 'https://goldexsoft.ir'
-        },
-        'qirato': {
-            title: 'دستیار تخصصی و هوشمند زرگری و بازار طلا (قیراط - Qirato)',
-            category: 'Android Native (Jetpack Compose / Kotlin) & Clean Architecture',
-            date: '۱۴۰۴ - تاکنون (پروژه فعال)',
-            description: 'طراحی، معماری و پیاده‌سازی اپلیکیشن نیتیو اندروید و پلتفرم تخصصی قیراط (Qirato) ویژه طلافروشان، بنکداران، کیفی‌ها و معامله‌گران بازار طلا. این سیستم با معماری Local-First و ۱۰۰٪ آفلاین، امکاناتی نظیر استعلام لحظه‌ای و سه‌گانه مظنه زنده، صدور فاکتور رسمی ماده ۲۶ اتحادیه با خروجی استاندارد PDF، تحلیل تخصصی حباب انواع مسکوکات، تبدیل عیار و ثبت اسناد دفتر معین زرگری را بدون نیاز به فیلترشکن فراهم می‌سازد.',
-            features: [
-                'توسعه نیتیو اندروید با مدرن‌ترین فریمورک رسمی گوگل (Jetpack Compose)، زبان Kotlin و رعایت اصول Clean Architecture & MVI',
-                'معماری کاملاً محلی (Local-First) با دیتابیس داخلی ایمن (Room / SQLite) با قابلیت کارکرد ۱۰۰٪ آفلاین و بدون وابستگی به اینترنت',
-                'موتور استعلام سه‌گانه و بلادرنگ نرخ طلا، مثقال و مسکوکات از منابع TGJU، طلا.آی‌آر و آی‌سیگنال با الگوریتم سوییچ خودکار و محاسبه برابری حواله درهم',
-                'سیستم صدور فاکتور رسمی دوطرفه و تهاتر با کسر نگین، اجرت ساخت و احتساب مالیات ارزش‌افزوده ۱۰٪ روی سود و اجرت طبق ماده ۲۶ قانون مالیات اتحادیه',
-                'تولید خودکار اسناد استاندارد فاکتور PDF جهت اشتراک‌گذاری سریع در پیام‌رسان‌ها (ایتا، بله، تلگرام، واتساپ) و چاپ با پرینترهای حرارتی و بلوتوثی',
-                'تحلیل‌گر تخصصی حباب سکه امامی، بهار آزادی، نیم، ربع و گرمی به همراه فرمول‌های دقیق تبدیل عیار و محاسبات ری‌گیری و ذوب طلا'
-            ],
-            tech: ['Kotlin', 'Jetpack Compose', 'Clean Architecture', 'Room DB / SQLite', 'Coroutines & Flow', 'Material 3', 'Node.js / Docker', 'Nginx'],
-            link: 'https://qirato.ir'
-        },
-        '5': {
-            title: 'دستیار تخصصی و هوشمند زرگری و بازار طلا (قیراط - Qirato)',
-            category: 'Android Native (Jetpack Compose / Kotlin) & Clean Architecture',
-            date: '۱۴۰۴ - تاکنون (پروژه فعال)',
-            description: 'طراحی، معماری و پیاده‌سازی اپلیکیشن نیتیو اندروید و پلتفرم تخصصی قیراط (Qirato) ویژه طلافروشان، بنکداران، کیفی‌ها و معامله‌گران بازار طلا. این سیستم با معماری Local-First و ۱۰۰٪ آفلاین، امکاناتی نظیر استعلام لحظه‌ای و سه‌گانه مظنه زنده، صدور فاکتور رسمی ماده ۲۶ اتحادیه با خروجی استاندارد PDF، تحلیل تخصصی حباب انواع مسکوکات، تبدیل عیار و ثبت اسناد دفتر معین زرگری را بدون نیاز به فیلترشکن فراهم می‌سازد.',
-            features: [
-                'توسعه نیتیو اندروید با مدرن‌ترین فریمورک رسمی گوگل (Jetpack Compose)، زبان Kotlin و رعایت اصول Clean Architecture & MVI',
-                'معماری کاملاً محلی (Local-First) با دیتابیس داخلی ایمن (Room / SQLite) با قابلیت کارکرد ۱۰۰٪ آفلاین و بدون وابستگی به اینترنت',
-                'موتور استعلام سه‌گانه و بلادرنگ نرخ طلا، مثقال و مسکوکات از منابع TGJU، طلا.آی‌آر و آی‌سیگنال با الگوریتم سوییچ خودکار و محاسبه برابری حواله درهم',
-                'سیستم صدور فاکتور رسمی دوطرفه و تهاتر با کسر نگین، اجرت ساخت و احتساب مالیات ارزش‌افزوده ۱۰٪ روی سود و اجرت طبق ماده ۲۶ قانون مالیات اتحادیه',
-                'تولید خودکار اسناد استاندارد فاکتور PDF جهت اشتراک‌گذاری سریع در پیام‌رسان‌ها (ایتا، بله، تلگرام، واتساپ) و چاپ با پرینترهای حرارتی و بلوتوثی',
-                'تحلیل‌گر تخصصی حباب سکه امامی، بهار آزادی، نیم، ربع و گرمی به همراه فرمول‌های دقیق تبدیل عیار و محاسبات ری‌گیری و ذوب طلا'
-            ],
-            tech: ['Kotlin', 'Jetpack Compose', 'Clean Architecture', 'Room DB / SQLite', 'Coroutines & Flow', 'Material 3', 'Node.js / Docker', 'Nginx'],
-            link: 'https://qirato.ir'
-        },
-        '2': {
-            title: 'پلتفرم جامع معاملات آنلاین طلا و صرافی (شرکت اتراب)',
-            category: 'C# / .NET Core & Blazor Engine',
-            date: '۱۳۹۹ - ۱۴۰۴',
-            description: 'طراحی و پیاده‌سازی سامانه صرافی و دادوستد آنلاین طلا. این سیستم امکان خرید، فروش، ثبت سفارش‌های لحظه‌ای و محاسبه دقیق قیمت مصنوعات طلا را با امنیت بالای تراکنش‌ها فراهم ساخت (پایان پروژه در سال ۱۴۰۴).',
-            features: [
-                'طراحی معماری REST API بر پایه ASP.NET Core با کارایی و امنیت بالا',
-                'پیاده‌سازی پنل کاربری و معامله با Blazor و کامپوننت‌های بهینه',
-                'محاسبه لحظه‌ای قیمت طلا با فرمول‌های دقیق حسابداری مالی',
-                'مدیریت دیتابیس SQL Server و EF Core با نرخ تراکنش بالا'
-            ],
-            tech: ['C#', '.NET Core', 'ASP.NET Core Web API', 'Blazor', 'SQL Server', 'EF Core'],
-            link: 'https://Artemisgolds.ir'
-        },
-        '3': {
-            title: 'سامانه‌های یکپارچه بیمارستانی (HIS - بیمارستان عارفیان)',
-            category: 'Clean Architecture & Enterprise .NET',
-            date: '۱۴۰۰ - ۱۴۰۲',
-            description: 'توسعه ماژول‌های حیاتی نرم‌افزاری بیمارستان عارفیان شامل سامانه نوبت‌دهی آنلاین، کنترل تردد و حضور غیاب پرسنل، تغذیه، منابع انسانی و بایگانی الکترونیک سوابق پزشکی بیماران.',
-            features: [
-                'طراحی معماری بر پایه اصول Clean Architecture و تفکیک لایه‌های دامنه (Domain)',
-                'یکپارچه‌سازی سیستم نوبت‌دهی آنلاین بیماران با درگاه‌ها و دیتابیس متمرکز',
-                'سیستم اتوماسیون تردد و فیش غذای پرسنل بیمارستان',
-                'پوشش امنیتی بالاتر برای اطلاعات پزشکی بیماران'
-            ],
-            tech: ['C#', 'ASP.NET Core', 'Clean Architecture', 'Domain-Driven Design', 'SQL Server', 'Entity Framework Core'],
-            link: 'https://medix.arefian.ir/'
-        }
-    };
-
-    window.openProjectModal = function(projectId) {
-        const modal = document.getElementById('projectModal');
-        const modalContent = document.getElementById('modalContent');
-        const modalBody = document.getElementById('modalBody');
-        const data = projectData[projectId];
-
-        if (!data || !modal || !modalBody || !modalContent) {
-            console.warn('Could not open modal for project:', projectId);
-            return;
-        }
-
-        modalBody.innerHTML = `
-            <div class="space-y-6 text-right">
-                <div class="space-y-2">
-                    <span class="text-xs font-bold text-cyan-700 dark:text-cyan-400 block">${data.category} • ${data.date}</span>
-                    <h3 class="text-2xl font-black text-main">${data.title}</h3>
-                </div>
-
-                <p class="text-muted text-sm sm:text-base leading-relaxed text-justify">${data.description}</p>
-
-                <div class="space-y-3">
-                    <h4 class="font-bold text-sm text-indigo-700 dark:text-indigo-400">ویژگی‌ها و معماری پروژه:</h4>
-                    <ul class="text-xs sm:text-sm text-muted space-y-2 list-disc list-inside leading-relaxed text-justify">
-                        ${data.features.map(f => `<li>${f}</li>`).join('')}
-                    </ul>
-                </div>
-
-                <div class="space-y-3 pt-2">
-                    <h4 class="font-bold text-sm text-cyan-700 dark:text-cyan-400">تکنولوژی‌های استفاده شده:</h4>
-                    <div class="flex flex-wrap gap-2">
-                        ${data.tech.map(t => `<span class="tech-pill px-3 py-1.5 rounded-lg border text-xs font-mono">${t}</span>`).join('')}
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t border-glass flex items-center justify-between flex-wrap gap-3">
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs text-indigo-700 dark:text-indigo-300 font-bold">توسعه یافته توسط مسعود خدادادی</span>
-                        ${data.link && data.link !== '#' ? `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-500/40 flex items-center gap-1.5 transition-all"><span>مشاهده وب‌سایت (${data.link.replace(/^https?:\/\//, '').replace(/\/$/, '')})</span><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>` : ''}
-                    </div>
-                    <button class="px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors cursor-pointer" onclick="window.closeProjectModal()">بستن پنجره</button>
-                </div>
-            </div>
-        `;
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        modalContent.classList.remove('scale-95');
-        modalContent.classList.add('scale-100');
-    };
-
-    window.closeProjectModal = function() {
-        const modal = document.getElementById('projectModal');
-        const modalContent = document.getElementById('modalContent');
-        if (modal && modalContent) {
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-        }
-    };
-
-    const modal = document.getElementById('projectModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-
-    document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.open-modal-btn');
-        if (btn) {
-            const projectId = btn.getAttribute('data-project');
-            window.openProjectModal(projectId);
-        }
-    });
-
-    closeModalBtn?.addEventListener('click', window.closeProjectModal);
-    modal?.addEventListener('click', (e) => {
-        if (e.target === modal) window.closeProjectModal();
-    });
-
-    // =========================================================================
-    // 8. Interactive Developer CLI Terminal Emulator
-    // =========================================================================
-    const terminalInput = document.getElementById('terminalInput');
-    const terminalOutput = document.getElementById('terminalOutput');
-    const terminalQuickBtns = document.querySelectorAll('.terminal-quick-btn');
-    const commandHistory = [];
-    let historyIndex = -1;
-
-    const commands = {
-        'help': 'دستورات آنلاین:<br>• <b class="text-cyan-300">about</b> - درباره مسعود خدادادی<br>• <b class="text-cyan-300">education</b> - مدارک و افتخارات تحصیلی (رتبه ۱)<br>• <b class="text-cyan-300">skills</b> - مهارت‌ها و اکوسیستم .NET<br>• <b class="text-cyan-300">projects</b> - پروژه‌های شاخص<br>• <b class="text-cyan-300">contact</b> - اطلاعات تماس<br>• <b class="text-cyan-300">clear</b> - پاک کردن صفحه<br>• <b class="text-cyan-300">sudo hire</b> - دعوت به همکاری',
-        'about': 'مسعود خدادادی - توسعه‌دهنده ارشد فول‌استک دات‌نت و طراح معماری پلتفرم هوشمند طلا و جواهر گلدکس (GoldEx). متخصص در C# 14، .NET 10 Core، Blazor، .NET MAUI، Jetpack Compose، معماری‌های Clean/DDD و اتصال هوش مصنوعی (MCP).',
-        'education': '🎓 <b>رتبه ۱ کارشناسی ارشد</b> مهندسی نرم‌افزار دانشگاه ارومیه<br>🎓 <b>رتبه ۱ کارشناسی</b> مهندسی نرم‌افزار دانشگاه ارومیه',
-        'skills': 'Backend: C# 14, .NET 10 Core, ASP.NET Core Web API, Blazor, Razor Pages<br>AI & Protocols: Model Context Protocol (MCP), Gemini AI, Claude AI Integration<br>Mobile: Jetpack Compose & Kotlin (Android Native), .NET MAUI, Xamarin<br>Architecture: Microservices, Clean Architecture, DDD, Multi-Tenancy, REST API<br>Databases & DevOps: SQL Server, EF Core, Docker, Kubernetes, Git',
-        'projects': '۱. <b class="text-amber-300">سامانه جامع طلا و جواهر گلدکس (GoldEx)</b> [نمونه کار اصلی: <a href="https://goldexsoft.ir" target="_blank" class="text-cyan-400 underline">goldexsoft.ir</a> - ۱۴۰۴ تا کنون]<br>۲. <b class="text-yellow-300">دستیار تخصصی و هوشمند زرگری قیراط (Qirato)</b> [<a href="https://qirato.ir" target="_blank" class="text-cyan-400 underline">qirato.ir</a> - ۱۴۰۴ تا کنون]<br>۳. <b>پلتفرم معاملات آنلاین طلا (اتراب)</b> [<a href="https://Artemisgolds.ir" target="_blank" class="text-cyan-400 underline">Artemisgolds.ir</a> - ۱۳۹۹ تا ۱۴۰۴]<br>۴. <b>سامانه‌های بیمارستانی HIS (عارفیان)</b> [<a href="https://medix.arefian.ir/" target="_blank" class="text-cyan-400 underline">medix.arefian.ir</a> - ۱۴۰۰ تا ۱۴۰۲]',
-        'contact': 'Email: masoud.xpress@gmail.com<br>آماده گفتگو جهت پروژه‌های سازمانی، مشاوره معماری نرم‌افزار یا همکاری ارشد.',
-        'sudo hire': '<span class="text-emerald-400 font-bold">🎉 فوق‌العاده است! لطفاً از فرم تماس پایین صفحه پیام بفرستید یا مستقیم ایمیل بزنید تا جلسه گفتگو را تنظیم کنیم.</span>'
-    };
-
-    if (terminalInput) {
-        terminalInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const cmd = terminalInput.value.trim().toLowerCase();
-                if (cmd) {
-                    processCommand(cmd);
-                    commandHistory.push(cmd);
-                    historyIndex = commandHistory.length;
-                    terminalInput.value = '';
-                }
-            } else if (e.key === 'ArrowUp') {
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    terminalInput.value = commandHistory[historyIndex];
-                }
-            } else if (e.key === 'ArrowDown') {
-                if (historyIndex < commandHistory.length - 1) {
-                    historyIndex++;
-                    terminalInput.value = commandHistory[historyIndex];
-                } else {
-                    historyIndex = commandHistory.length;
-                    terminalInput.value = '';
-                }
-            }
-        });
-    }
-
-    terminalQuickBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const cmd = btn.getAttribute('data-cmd');
-            processCommand(cmd);
-        });
-    });
-
-    function processCommand(cmd) {
-        if (cmd === 'clear') {
-            terminalOutput.innerHTML = '';
-            return;
-        }
-
-        const cmdLine = document.createElement('div');
-        cmdLine.className = 'flex items-center gap-2 font-mono text-xs';
-        cmdLine.innerHTML = `<span class="text-cyan-400 font-bold">masoud@dotnet:~$</span> <span>${escapeHtml(cmd)}</span>`;
-
-        const responseLine = document.createElement('div');
-        responseLine.className = 'text-slate-300 font-mono text-xs pl-4 leading-relaxed';
-
-        if (commands[cmd]) {
-            responseLine.innerHTML = commands[cmd];
-        } else {
-            responseLine.innerHTML = `<span class="text-rose-400">Command not found: ${escapeHtml(cmd)}. Type <b class="text-cyan-300">help</b> for options.</span>`;
-        }
-
-        terminalOutput.appendChild(cmdLine);
-        terminalOutput.appendChild(responseLine);
-
-        const terminalBody = document.getElementById('terminalBody');
-        terminalBody.scrollTop = terminalBody.scrollHeight;
-    }
-
-    function escapeHtml(text) {
-        return text.replace(/[&<>"']/g, function(m) {
-            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-        });
-    }
-
-    // =========================================================================
-    // 9. Contact Form Handling & Toast Notifications
-    // =========================================================================
-    const contactForm = document.getElementById('contactForm');
-    const copyEmailBtn = document.getElementById('copyEmailBtn');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<span>در حال ارسال پیام برای مسعود...</span>`;
-
-            setTimeout(() => {
-                showToast('پیام شما با موفقیت ارسال شد! مسعود خدادادی به زودی با شما تماس خواهد گرفت.', 'success');
-                contactForm.reset();
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            }, 1200);
-        });
-    }
-
-    if (copyEmailBtn) {
-        copyEmailBtn.addEventListener('click', () => {
-            const emailText = document.getElementById('emailText').textContent;
-            navigator.clipboard.writeText(emailText).then(() => {
-                showToast('آدرس ایمیل masoud.xpress@gmail.com کپی شد!', 'info');
-            });
-        });
-    }
-
-    function showToast(message, type = 'info') {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = `px-5 py-3.5 rounded-2xl glass-card border border-glass shadow-2xl flex items-center gap-3 text-sm font-semibold animate-fade-in pointer-events-auto ${type === 'success' ? 'text-emerald-400 border-emerald-500/40' : 'text-cyan-400 border-cyan-500/40'}`;
-        toast.innerHTML = `
-            <span class="w-2.5 h-2.5 rounded-full ${type === 'success' ? 'bg-emerald-400' : 'bg-cyan-400'}"></span>
-            <span>${message}</span>
-        `;
-
-        container.appendChild(toast);
-
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateY(10px)';
-            toast.style.transition = 'all 0.3s ease';
-            setTimeout(() => toast.remove(), 300);
-        }, 3500);
-    }
-
-    // =========================================================================
-    // 10. Mobile Navigation Menu Toggle
-    // =========================================================================
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-    }
-
-    // =========================================================================
-    // 11. Ambient Particle Canvas Animation
-    // =========================================================================
-    const canvas = document.getElementById('particleCanvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 45; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-
-        animateParticles();
-    }
-
+/* Masoud / Folio 04 — project content and accessible interactions. */
+'use strict';
+
+const PROJECTS = Object.freeze([
+  {
+    id: 'goldex', title: 'گلدکس / GoldEx', english: 'GOLDEX', number: '01',
+    category: 'product', categoryLabel: 'محصول مستقل · فناوری مالی',
+    visual: 'gold', mark: 'Gx', featured: true, logo: '/assets/goldex-logo.png',
+    short: 'سامانه جامع مدیریت کسب‌وکار طلا و جواهر؛ از موجودی و فاکتور تا حسابداری و تعامل با دستیار هوشمند.',
+    problem: 'فرآیندهای پراکنده موجودی، قیمت‌گذاری، فاکتور و تسویه‌حساب در کسب‌وکارهای طلا و جواهر.',
+    role: 'طراحی مدل دامنه مالی، معماری نرم‌افزار، مدیریت توسعه و یکپارچه‌سازی قابلیت‌های هوش مصنوعی.',
+    decisions: ['مدل‌سازی دقیق موجودی، وزن، عیار و پرداخت‌ها', 'جداسازی منطق کسب‌وکار از رابط کاربری و سرویس‌ها', 'ارائه قابلیت‌های تعاملی مبتنی بر Model Context Protocol'],
+    outcome: 'محصولی یکپارچه با گردش‌کار فروش، خرید، موجودی و حساب‌ها و قابلیت توسعه تدریجی.',
+    stack: ['.NET', 'Blazor', 'SQL Server', 'DDD', 'MCP'],
+    link: 'https://goldexsoft.ir'
+  },
+  {
+    id: 'qirato', title: 'قیراط / Qirato', english: 'QIRATO', number: '02',
+    category: 'product', categoryLabel: 'محصول مستقل · اندروید',
+    visual: 'qirato', mark: 'Q', logo: '/assets/qirato-logo.png',
+    short: 'ابزار کاربردی محاسبه و صدور فاکتور طلا با تمرکز بر سرعت، دقت و تجربه آفلاین.',
+    problem: 'نیاز فعالان بازار طلا به محاسبات دقیق، ثبت اطلاعات و تولید اسناد بدون وابستگی دائمی به اتصال اینترنت.',
+    role: 'طراحی تجربه محصول، مدل داده محلی و جریان‌های اصلی محاسبات و صدور فاکتور.',
+    decisions: ['رویکرد Local-First برای سناریوهای روزمره', 'تفکیک تجربه محاسبه از مدیریت فاکتور', 'تمرکز بر ورودی‌های سریع و رابط کاربری لمسی'],
+    outcome: 'مجموعه ابزار موبایلی تخصصی برای سناریوهای محاسبه و ثبت فاکتور طلا.',
+    stack: ['Kotlin', 'Jetpack Compose', 'SQLite', 'Mobile UX'],
+    link: 'https://qirato.ir'
+  },
+  {
+    id: 'meetflow', title: 'وقت‌نگار / MeetFlow', english: 'MEETFLOW', number: '03',
+    category: 'enterprise', categoryLabel: 'سامانه سازمانی · مدیریت جلسات',
+    visual: 'meet', mark: 'M/',
+    short: 'مدیریت جلسات، تقویم‌های سازمانی، دعوت‌ها و هماهنگی تیم‌ها در یک جریان منسجم.',
+    problem: 'هماهنگی چندلایه جلسات سازمانی، اتاق‌ها، مدعوین و سطح دسترسی در ساختارهای پیچیده.',
+    role: 'معماری راهکار، تحلیل گردش‌کار، طراحی تجربه کاربری و یکپارچه‌سازی هویت و اعلان‌ها.',
+    decisions: ['تطبیق دسترسی‌ها با ساختار سازمانی', 'یکپارچه‌سازی احراز هویت متمرکز و وب‌هوک‌ها', 'طراحی مسیرهای واکنش‌گرا برای کاربران موبایل و دسکتاپ'],
+    outcome: 'راهکاری برای مدیریت چرخه جلسه از برنامه‌ریزی تا تأیید حضور و اطلاع‌رسانی.',
+    stack: ['Blazor', 'SSO', 'Webhooks', 'System Design']
+  },
+  {
+    id: 'citizen', title: 'درگاه خدمات شهروندی', english: 'CITIZEN SERVICES', number: '04',
+    category: 'enterprise', categoryLabel: 'سامانه سازمانی · خدمات عمومی',
+    visual: 'city', mark: 'Cs',
+    short: 'بازطراحی مسیر درخواست، پیگیری و پرداخت خدمات شهری در یک تجربه یکپارچه.',
+    problem: 'پیچیدگی استفاده از سرویس‌های شهری و نیاز به مدرن‌سازی تجربه شهروندان بدون قطع سازگاری سرویس‌های قدیمی.',
+    role: 'نوسازی معماری، طراحی رابط کاربری و حفظ قراردادهای سرویس در فرآیند مهاجرت.',
+    decisions: ['نوسازی تدریجی همراه با سازگاری سرویس‌ها', 'طراحی تجربه فارسی و واکنش‌گرا', 'تفکیک منطقی بخش عمومی و مدیریت'],
+    outcome: 'درگاه متمرکزتر برای کشف، درخواست و پیگیری خدمات شهری.',
+    stack: ['.NET', 'Clean Architecture', 'UX', 'Docker']
+  },
+  {
+    id: 'ruzin', title: 'روزین / Ruzin', english: 'RUZIN', number: '05',
+    category: 'enterprise', categoryLabel: 'سامانه سازمانی · منابع انسانی',
+    visual: 'ruzin', mark: 'R',
+    short: 'مدیریت حضور و غیاب، درخواست‌های مرخصی و مأموریت و قواعد زمانی نیروی انسانی.',
+    problem: 'تعدد قوانین ساعات کاری، سلسله‌مراتب سازمانی و نیاز به محاسبه دقیق وضعیت تردد و درخواست‌ها.',
+    role: 'تحلیل قوانین حضور و غیاب، طراحی مدل دسترسی و بهبود گردش‌کارهای کارکنان و منابع انسانی.',
+    decisions: ['محاسبات مبتنی بر تاریخ اعتبار قوانین', 'گردش‌کار درخواست و تأیید', 'هماهنگ‌سازی داده تردد و ساختار سازمانی'],
+    outcome: 'سیستمی برای مدیریت عملیات حضور و درخواست‌های منابع انسانی با مدل‌های زمانی روشن.',
+    stack: ['HR Workflows', '.NET', 'Access Control', 'Data']
+  },
+  {
+    id: 'itam', title: 'پایش سامانه‌ها / ITAM', english: 'ITAM MONITORING', number: '06',
+    category: 'enterprise', categoryLabel: 'سامانه سازمانی · عملیات',
+    visual: 'itam', mark: 'iT',
+    short: 'نمایی عملیاتی از سلامت سرویس‌ها، پایگاه‌های داده و رویدادهای زیرساخت نرم‌افزاری.',
+    problem: 'تشخیص دیرهنگام اختلالات و پراکندگی اطلاعات سلامت سامانه‌ها در محیط‌های سازمانی.',
+    role: 'طراحی ساختار مانیتورینگ، تجربه داشبورد و یکپارچگی بررسی‌های سلامت سیستم.',
+    decisions: ['تفکیک پایش سرویس و پایگاه داده', 'نمایش وضعیت بلادرنگ', 'طراحی مدل‌های تعریف و تخصیص منابع تحت پایش'],
+    outcome: 'یک نمای عملیاتی متمرکزتر برای بررسی وضعیت سیستم‌ها و رخدادها.',
+    stack: ['Monitoring', 'SignalR', 'SQL Server', 'DevOps']
+  },
+  {
+    id: 'ranking', title: 'سامانه رتبه‌بندی', english: 'RANKING SYSTEM', number: '07',
+    category: 'enterprise', categoryLabel: 'سامانه سازمانی · ارزیابی',
+    visual: 'rank', mark: 'Rk',
+    short: 'شفاف‌سازی معیارهای ارزیابی، دوره‌های فعال و وضعیت امتیاز کارکنان؛ در مسیر توسعه.',
+    problem: 'پراکندگی معیارهای رتبه‌بندی و نبود نمای شفاف از امتیازها و شرایط موردنیاز.',
+    role: 'طراحی مدل دوره و معیارهای ارزیابی، تجربه کاربری کارکنان و الگوی دسترسی.',
+    decisions: ['تفکیک معیار و امتیاز کسب‌شده', 'پشتیبانی از دوره‌های ارزیابی', 'طراحی دسترسی‌های مبتنی بر نقش'],
+    outcome: 'زیرساختی در حال توسعه برای مدیریت شفاف‌تر چرخه ارزیابی.',
+    stack: ['Workflow', 'Authorization', '.NET']
+  },
+  {
+    id: 'etraab', title: 'پلتفرم معاملات اتراب', english: 'ETRAAB', number: '08',
+    category: 'industry', categoryLabel: 'پروژه تخصصی · معاملات طلا',
+    visual: 'etraab', mark: 'Et',
+    short: 'بخش‌هایی از تجربه خرید، فروش و محاسبات مالی در یک سامانه معاملات آنلاین طلا.',
+    problem: 'پیچیدگی مدیریت سفارش‌ها و محاسبات مالی حساس در محیط معاملات آنلاین.',
+    role: 'توسعه بخش‌هایی از معماری API، رابط کاربری و منطق محاسبات معاملات طلا.',
+    decisions: ['تمرکز بر صحت محاسبات مالی', 'تفکیک سرویس‌های تجاری از ارائه اطلاعات', 'مدیریت وضعیت سفارش و جریان معامله'],
+    outcome: 'مشارکت در توسعه زیرساخت معاملات و تجربه کاربری یک پلتفرم تخصصی.',
+    stack: ['ASP.NET Core', 'Blazor', 'SQL Server']
+  },
+  {
+    id: 'his', title: 'سامانه‌های بیمارستانی', english: 'HEALTHCARE SYSTEMS', number: '09',
+    category: 'industry', categoryLabel: 'پروژه تخصصی · سلامت',
+    visual: 'his', mark: 'H+',
+    short: 'مشارکت در توسعه ماژول‌های نوبت‌دهی، خدمات پرسنل و فرآیندهای عملیاتی بیمارستان.',
+    problem: 'نیاز به جریان‌های قابل اتکا برای امور اداری و خدماتی در محیط بیمارستانی.',
+    role: 'توسعه و یکپارچه‌سازی ماژول‌های نرم‌افزاری با تمرکز بر ساختار داده و فرآیند.',
+    decisions: ['تفکیک بخش‌های عملکردی سامانه', 'مدیریت ارتباط بین ماژول‌ها', 'توجه به حساسیت داده و کنترل دسترسی'],
+    outcome: 'مشارکت در دیجیتالی‌سازی بخشی از فرآیندهای خدماتی و اداری بیمارستان.',
+    stack: ['.NET', 'SQL Server', 'Enterprise Integration']
+  }
+]);
+
+const qs = (selector, root = document) => root.querySelector(selector);
+const qsa = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const faNumber = (n) => new Intl.NumberFormat('fa-IR').format(n);
+
+const grid = qs('#project-grid');
+const count = qs('#work-count');
+const dialog = qs('#project-dialog');
+let previousFocus = null;
+
+function cardMarkup(p) {
+  const logo = p.logo ? '<img class="visual-logo" src="' + p.logo + '" alt="" loading="lazy">' : '';
+  return [
+    '<article class="project-card', p.featured ? ' featured' : '', '" data-category="', p.category, '" data-reveal aria-labelledby="project-', p.id, '">',
+    '<div class="project-visual" data-visual="', p.visual, '" aria-hidden="true">',
+    '<div class="visual-rules"></div><div class="visual-orbit"></div>',
+    '<div class="visual-top" dir="ltr"><span>', p.english, '</span><span>MK / ', p.number, '</span></div>',
+    '<div class="visual-display" dir="ltr"><span class="visual-monogram">', p.mark, '</span>', logo, '</div>',
+    '<div class="visual-bottom" dir="ltr"><span>SOFTWARE / SYSTEMS</span><span>↓</span></div></div>',
+    '<div class="project-main"><span class="project-index" dir="ltr">', p.number, ' / SELECTED WORK</span>',
+    '<h3 id="project-', p.id, '">', escapeHtml(p.title), '</h3><p>', escapeHtml(p.short), '</p>',
+    '<div class="project-bottom"><span>', escapeHtml(p.categoryLabel), '</span>',
+    '<button class="project-open" type="button" data-project="', p.id, '" aria-label="مشاهده جزئیات پروژه ', escapeHtml(p.title), '" title="مشاهده جزئیات">↙</button>',
+    '</div></div></article>'
+  ].join('');
+}
+function renderProjects(category = 'all') {
+  const filtered = PROJECTS.filter((p) => category === 'all' || p.category === category);
+  grid.innerHTML = filtered.map(cardMarkup).join('');
+  count.textContent = faNumber(filtered.length) + ' پروژه منتخب';
+  bindReveals(grid);
+}
+function openProject(id, trigger) {
+  const p = PROJECTS.find((project) => project.id === id);
+  if (!p || !dialog) return;
+  previousFocus = trigger;
+  const decisions = p.decisions.map((d) => '<li>' + escapeHtml(d) + '</li>').join('');
+  qs('#dialog-content').innerHTML = [
+    '<div class="dialog-content"><p class="dialog-kicker" dir="ltr">',p.english,' / ',p.number,'</p>',
+    '<h2 id="dialog-heading">',escapeHtml(p.title),'</h2>',
+    '<p class="dialog-summary">',escapeHtml(p.short),'</p>',
+    '<div class="dialog-section"><h3>مسئله</h3><p>',escapeHtml(p.problem),'</p></div>',
+    '<div class="dialog-section"><h3>نقش من</h3><p>',escapeHtml(p.role),'</p></div>',
+    '<div class="dialog-section"><h3>تصمیم‌های فنی</h3><ul>',decisions,'</ul></div>',
+    '<div class="dialog-section"><h3>خروجی</h3><p>',escapeHtml(p.outcome),'</p></div>',
+    '<div class="dialog-section"><h3>فناوری‌ها</h3><p class="dialog-tags" dir="ltr">',p.stack.map(escapeHtml).join(' / '),'</p></div>',
+    p.link ? '<a class="dialog-visit" href="' + p.link + '" target="_blank" rel="noopener noreferrer">مشاهده وب‌سایت پروژه <span aria-hidden="true">↗</span></a>' : '',
+    '</div>'
+  ].join('');
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+    document.body.classList.add('dialog-open');
+    qs('#dialog-close').focus();
+  }
+}
+function closeDialog() { if (dialog && dialog.open) dialog.close(); }
+grid.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-project]');
+  if (button) openProject(button.dataset.project, button);
 });
+qs('#dialog-close').addEventListener('click', closeDialog);
+dialog.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
+dialog.addEventListener('close', () => {
+  document.body.classList.remove('dialog-open');
+  if (previousFocus && previousFocus.isConnected) previousFocus.focus();
+  previousFocus = null;
+});
+qsa('.filter-btn').forEach((button) => {
+  button.addEventListener('click', () => {
+    qsa('.filter-btn').forEach((tab) => {
+      const active = tab === button;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-pressed', String(active));
+    });
+    renderProjects(button.dataset.filter);
+  });
+});
+
+/* Mobile navigation */
+const menuButton = qs('#menu-switch');
+const mobileNav = qs('#mobile-nav');
+function setMenu(open) {
+  menuButton.setAttribute('aria-expanded', String(open));
+  menuButton.setAttribute('aria-label', open ? 'بستن منو' : 'باز کردن منو');
+  mobileNav.classList.toggle('open', open);
+  mobileNav.inert = !open;
+  document.body.classList.toggle('menu-open', open);
+}
+menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+qsa('a', mobileNav).forEach((link) => link.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
+    setMenu(false);
+    menuButton.focus();
+  }
+});
+window.addEventListener('resize', () => { if (window.innerWidth > 900) setMenu(false); });
+
+/* Theme */
+const themeButton = qs('#theme-switch');
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeButton.setAttribute('aria-pressed', String(theme === 'dark'));
+  qs('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#191d19' : '#f4f3ee');
+}
+try {
+  applyTheme(localStorage.getItem('mk-theme') === 'dark' ? 'dark' : 'light');
+} catch { applyTheme('light'); }
+themeButton.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  try { localStorage.setItem('mk-theme', next); } catch { /* private mode */ }
+});
+
+/* Utility interaction: no simulated email delivery */
+let toastTimeout;
+function showToast(message) {
+  const toast = qs('#toast');
+  toast.textContent = message;
+  toast.classList.add('visible');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('visible'), 3200);
+}
+qs('#copy-email').addEventListener('click', async () => {
+  try {
+    if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText('masoud.xpress@gmail.com');
+    showToast('آدرس ایمیل کپی شد.');
+  } catch {
+    showToast('امکان کپی خودکار نیست؛ آدرس ایمیل را از بالای دکمه انتخاب کنید.');
+  }
+});
+
+/* Reading progress and restrained motion */
+let revealObserver;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reducedMotion && 'IntersectionObserver' in window) {
+  revealObserver = new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    }
+  }, {threshold: .06, rootMargin: '0px 0px 30px 0px'});
+}
+function bindReveals(root) {
+  if (!revealObserver) return;
+  qsa('[data-reveal]', root).forEach((el) => {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('revealed');
+    else revealObserver.observe(el);
+  });
+}
+function updateScroll() {
+  const available = document.documentElement.scrollHeight - window.innerHeight;
+  const percent = available > 0 ? Math.min(100, (window.scrollY / available) * 100) : 0;
+  qs('#scroll-line').style.width = percent + '%';
+  qs('#site-header').classList.toggle('scrolled', window.scrollY > 24);
+}
+window.addEventListener('scroll', updateScroll, {passive:true});
+window.addEventListener('resize', updateScroll, {passive:true});
+renderProjects();
+document.documentElement.classList.add('has-js');
+updateScroll();

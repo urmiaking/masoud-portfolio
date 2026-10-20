@@ -1,6 +1,14 @@
 .git
 .gitignore
+.dockerignore
 docker-compose.yml
 Dockerfile
 nginx-host.conf
 README.md
+refresh_portfolio.py
+*.md
+node_modules
+package.json
+package-lock.json
+tailwind.config.js
+tailwind-input.css

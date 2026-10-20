@@ -1,14 +1,7 @@
-# OS Files
+node_modules/
 .DS_Store
-Thumbs.db
-desktop.ini
-
-# Logs & Environment
+.vscode/
+.idea/
 *.log
 .env
-.env.local
-
-# Node modules / Build artifacts (if any)
-node_modules/
-dist/
-.cache/
+.env.*

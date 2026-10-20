@@ -1,16 +1,13 @@
-networks:
-  goldex-network:
-    external: true
-
 services:
   masoud-portfolio:
-    build: .
-    image: reg.goldexsoft.ir/masoud-portfolio:latest
+    image: reg.goldexsoft.ir/masoud-portfolio:${IMAGE_TAG:-latest}
     container_name: masoud-portfolio
-    restart: always
+    restart: unless-stopped
     networks:
       - goldex-network
     expose:
       - "80"
-    environment:
-      - NODE_ENV=production
+
+networks:
+  goldex-network:
+    external: true
