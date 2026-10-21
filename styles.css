@@ -411,3 +411,34 @@ a,button { -webkit-tap-highlight-color: transparent; }
   .project-card.featured h3 {font-size:27px;}
   .about-facts strong {font-size:24px;}
 }
+
+
+/* Curated home vs. full work archive */
+.archive-main { min-height: 70vh; }
+.work-archive { padding-top: clamp(55px,7vw,95px); }
+.archive-back { display: inline-flex; align-items: center; gap:12px; border-bottom: 1px solid var(--ink); font-weight:800; font-size:12px; padding-bottom:7px; margin-bottom:65px; transition:transform .2s; }
+.archive-back:hover { transform:translateX(5px); }
+.section-heading .archive-title { font-size:clamp(42px,6vw,82px); }
+.home-work-toolbar { border-bottom:1px solid var(--ink); }
+.work-explore { display:inline-flex;gap:16px;align-items:center;font-size:12px;font-weight:800;border-bottom:1px solid transparent;padding:8px 0; }
+.work-explore:hover { border-bottom-color:currentColor; }
+.work-explore span {font:500 20px/1 'Space Grotesk',sans-serif;}
+.work-all-link-wrap { margin-top:42px; display:flex; justify-content:center; }
+.work-all-link { display:flex;align-items:center;justify-content:space-between;min-width:min(100%,375px);gap:28px;padding:22px 27px;background:var(--ink);color:var(--paper);font-size:15px;font-weight:800;transition:transform .25s var(--ease), background .25s; }
+.work-all-link:hover { transform:translateY(-3px);background:#3f523b;color:#f7ffe8; }
+.work-all-link span:last-child { font:500 26px/1 'Space Grotesk',sans-serif; }
+.project-visual[data-visual="plaque"] { --vbg:#c9d4bc;--vfg:#2c4336; }
+.project-visual[data-visual="plaque"] .visual-logo { width:110px; max-width:35%; height:auto; object-fit:contain; }
+.project-visual[data-visual="itam"] .visual-logo,
+.project-visual[data-visual="meet"] .visual-logo { width:50px; height:50px; max-width:none; object-fit:contain; position:absolute;right:12%;bottom:13%; }
+.project-visual[data-visual="ruzin"] .visual-logo { width:66px; height:66px; max-width:none; object-fit:contain; position:absolute;right:10%;bottom:14%; }
+.archive-cta {display:flex;align-items:center;justify-content:space-between;gap:26px;margin-top:95px;padding:38px 0 0;border-top:1px solid var(--ink);font-size:23px;font-weight:900;}
+.archive-cta-link {font-size:13px; border-bottom:2px solid var(--ink);padding-bottom:7px;white-space:nowrap;}
+.archive-cta-link:hover { color:#72913c; }
+@media(max-width:700px){
+ .archive-back {margin-bottom:35px;}
+ .archive-cta {margin-top:55px;align-items:flex-start;flex-direction:column;font-size:20px;}
+ .work-explore{font-size:11px;}
+ .work-all-link-wrap {margin-top:28px;}
+ .project-visual[data-visual="plaque"] .visual-logo {max-width:30%;}
+}

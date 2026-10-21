@@ -5,7 +5,7 @@ const PROJECTS = Object.freeze([
   {
     id: 'goldex', title: 'گلدکس / GoldEx', english: 'GOLDEX', number: '01',
     category: 'product', categoryLabel: 'محصول مستقل · فناوری مالی',
-    visual: 'gold', mark: 'Gx', featured: true, logo: '/assets/goldex-logo.png',
+    visual: 'gold', mark: 'Gx', featured: true, featuredHome: true, logo: '/assets/goldex-logo.png',
     short: 'سامانه جامع مدیریت کسب‌وکار طلا و جواهر؛ از موجودی و فاکتور تا حسابداری و تعامل با دستیار هوشمند.',
     problem: 'فرآیندهای پراکنده موجودی، قیمت‌گذاری، فاکتور و تسویه‌حساب در کسب‌وکارهای طلا و جواهر.',
     role: 'طراحی مدل دامنه مالی، معماری نرم‌افزار، مدیریت توسعه و یکپارچه‌سازی قابلیت‌های هوش مصنوعی.',
@@ -17,7 +17,7 @@ const PROJECTS = Object.freeze([
   {
     id: 'qirato', title: 'قیراط / Qirato', english: 'QIRATO', number: '02',
     category: 'product', categoryLabel: 'محصول مستقل · اندروید',
-    visual: 'qirato', mark: 'Q', logo: '/assets/qirato-logo.png',
+    visual: 'qirato', mark: 'Q', featuredHome: true, logo: '/assets/qirato-logo.png',
     short: 'ابزار کاربردی محاسبه و صدور فاکتور طلا با تمرکز بر سرعت، دقت و تجربه آفلاین.',
     problem: 'نیاز فعالان بازار طلا به محاسبات دقیق، ثبت اطلاعات و تولید اسناد بدون وابستگی دائمی به اتصال اینترنت.',
     role: 'طراحی تجربه محصول، مدل داده محلی و جریان‌های اصلی محاسبات و صدور فاکتور.',
@@ -29,16 +29,41 @@ const PROJECTS = Object.freeze([
   {
     id: 'meetflow', title: 'وقت‌نگار / MeetFlow', english: 'MEETFLOW', number: '03',
     category: 'enterprise', categoryLabel: 'سامانه سازمانی · مدیریت جلسات',
-    visual: 'meet', mark: 'M/',
-    short: 'مدیریت جلسات، تقویم‌های سازمانی، دعوت‌ها و هماهنگی تیم‌ها در یک جریان منسجم.',
+    visual: 'meet', mark: 'M/', logo: '/assets/meetflow-mark.png', featuredHome: true,
+    short: 'سامانه سازمانی مدیریت جلسات، تقویم‌ها، دعوت‌ها، مصوبات و هماهنگی میان واحدها با یکپارچه‌سازی هویت.',
     problem: 'هماهنگی چندلایه جلسات سازمانی، اتاق‌ها، مدعوین و سطح دسترسی در ساختارهای پیچیده.',
     role: 'معماری راهکار، تحلیل گردش‌کار، طراحی تجربه کاربری و یکپارچه‌سازی هویت و اعلان‌ها.',
     decisions: ['تطبیق دسترسی‌ها با ساختار سازمانی', 'یکپارچه‌سازی احراز هویت متمرکز و وب‌هوک‌ها', 'طراحی مسیرهای واکنش‌گرا برای کاربران موبایل و دسکتاپ'],
     outcome: 'راهکاری برای مدیریت چرخه جلسه از برنامه‌ریزی تا تأیید حضور و اطلاع‌رسانی.',
-    stack: ['Blazor', 'SSO', 'Webhooks', 'System Design']
+    stack: ['.NET 10', 'Blazor', 'SQL Server', 'SSO', 'Webhooks'],
+    link: 'https://jalase.urmia.ir'
   },
   {
-    id: 'citizen', title: 'درگاه خدمات شهروندی', english: 'CITIZEN SERVICES', number: '04',
+    id: 'smartplaque', title: 'پلاک هوشمند / SmartPlaque', english: 'SMART PLAQUE', number: '04',
+    category: 'enterprise', categoryLabel: 'سامانه سازمانی · شهر هوشمند و GIS',
+    visual: 'plaque', mark: 'P/', featuredHome: true, logo: '/assets/smartplaque-logo.png',
+    short: 'پلاک و اطلاعات مکانی هوشمند، اتصال قطعات و واحدهای ساختمانی به داده‌های شهری و سرویس‌های سازمانی.',
+    problem: 'پراکندگی اطلاعات املاک، واحدهای ساختمانی و مشخصات مکانی بین سامانه‌ها و دستگاه‌های مختلف.',
+    role: 'مشارکت در طراحی و توسعه سامانه‌های شهروندی و مدیریتی، یکپارچه‌سازی GIS و مدل‌های داده مکانی.',
+    decisions: ['مدل دامنه Parcel و Unit برای املاک و واحدها', 'یکپارچه‌سازی اطلاعات مکانی مبتنی بر WFS و GIS', 'مدیریت ویژگی‌های قابل تعریف توسط سازمان‌ها و گزارش مغایرت'],
+    outcome: 'بستری برای مدیریت اطلاعات پلاک و دارایی مکانی و ارتباط بهتر داده‌های شهری.',
+    stack: ['.NET', 'Blazor', 'GIS / WFS', 'SQL Server'],
+    link: 'https://pelak.urmia.ir'
+  },
+  {
+    id: 'itam', title: 'پایش سامانه‌ها / ITAM', english: 'ITAM MONITORING', number: '05',
+    category: 'enterprise', categoryLabel: 'سامانه سازمانی · عملیات',
+    visual: 'itam', mark: 'iT', featuredHome: true, logo: '/assets/itam-mark.png',
+    short: 'مدیریت دارایی‌های IT و پایش بلادرنگ رایانه‌ها، سخت‌افزار و تغییرات شبکه با عامل‌های نصب‌شده روی سیستم‌ها.',
+    problem: 'نبود دید یکپارچه از وضعیت دارایی‌های فناوری اطلاعات، تغییرات تجهیزات، ارتباطات و سلامت سیستم‌های کاربران.',
+    role: 'طراحی و توسعه اجزای معماری Agent–Server، جریان گردآوری داده، نمایش بلادرنگ و داشبورد مدیریتی.',
+    decisions: ['عامل ویندوز برای جمع‌آوری تغییرات سخت‌افزار و شبکه', 'ثبت رویدادها برای ارسال مجدد هنگام قطع ارتباط', 'نمایش تغییرات در داشبورد بلادرنگ'],
+    outcome: 'بستر رصد دارایی‌های سازمانی، گزارش تغییرات و مشاهده متمرکز وضعیت رایانه‌ها.',
+    stack: ['Windows Agent', '.NET', 'Blazor', 'SignalR', 'SQL Server'],
+    link: 'https://itam.urmia.ir'
+  },
+  {
+    id: 'citizen', title: 'درگاه خدمات شهروندی', english: 'CITIZEN SERVICES', number: '06',
     category: 'enterprise', categoryLabel: 'سامانه سازمانی · خدمات عمومی',
     visual: 'city', mark: 'Cs',
     short: 'بازطراحی مسیر درخواست، پیگیری و پرداخت خدمات شهری در یک تجربه یکپارچه.',
@@ -46,40 +71,20 @@ const PROJECTS = Object.freeze([
     role: 'نوسازی معماری، طراحی رابط کاربری و حفظ قراردادهای سرویس در فرآیند مهاجرت.',
     decisions: ['نوسازی تدریجی همراه با سازگاری سرویس‌ها', 'طراحی تجربه فارسی و واکنش‌گرا', 'تفکیک منطقی بخش عمومی و مدیریت'],
     outcome: 'درگاه متمرکزتر برای کشف، درخواست و پیگیری خدمات شهری.',
-    stack: ['.NET', 'Clean Architecture', 'UX', 'Docker']
+    stack: ['.NET 10', 'MVC', 'SQL Server', 'SOAP', 'Docker'],
+    link: 'https://khedmat.urmia.ir'
   },
   {
-    id: 'ruzin', title: 'روزین / Ruzin', english: 'RUZIN', number: '05',
+    id: 'ruzin', title: 'روزین / Ruzin', english: 'RUZIN', number: '07',
     category: 'enterprise', categoryLabel: 'سامانه سازمانی · منابع انسانی',
-    visual: 'ruzin', mark: 'R',
+    visual: 'ruzin', mark: 'R', logo: '/assets/ruzin-mark.svg',
     short: 'مدیریت حضور و غیاب، درخواست‌های مرخصی و مأموریت و قواعد زمانی نیروی انسانی.',
     problem: 'تعدد قوانین ساعات کاری، سلسله‌مراتب سازمانی و نیاز به محاسبه دقیق وضعیت تردد و درخواست‌ها.',
     role: 'تحلیل قوانین حضور و غیاب، طراحی مدل دسترسی و بهبود گردش‌کارهای کارکنان و منابع انسانی.',
     decisions: ['محاسبات مبتنی بر تاریخ اعتبار قوانین', 'گردش‌کار درخواست و تأیید', 'هماهنگ‌سازی داده تردد و ساختار سازمانی'],
     outcome: 'سیستمی برای مدیریت عملیات حضور و درخواست‌های منابع انسانی با مدل‌های زمانی روشن.',
-    stack: ['HR Workflows', '.NET', 'Access Control', 'Data']
-  },
-  {
-    id: 'itam', title: 'پایش سامانه‌ها / ITAM', english: 'ITAM MONITORING', number: '06',
-    category: 'enterprise', categoryLabel: 'سامانه سازمانی · عملیات',
-    visual: 'itam', mark: 'iT',
-    short: 'نمایی عملیاتی از سلامت سرویس‌ها، پایگاه‌های داده و رویدادهای زیرساخت نرم‌افزاری.',
-    problem: 'تشخیص دیرهنگام اختلالات و پراکندگی اطلاعات سلامت سامانه‌ها در محیط‌های سازمانی.',
-    role: 'طراحی ساختار مانیتورینگ، تجربه داشبورد و یکپارچگی بررسی‌های سلامت سیستم.',
-    decisions: ['تفکیک پایش سرویس و پایگاه داده', 'نمایش وضعیت بلادرنگ', 'طراحی مدل‌های تعریف و تخصیص منابع تحت پایش'],
-    outcome: 'یک نمای عملیاتی متمرکزتر برای بررسی وضعیت سیستم‌ها و رخدادها.',
-    stack: ['Monitoring', 'SignalR', 'SQL Server', 'DevOps']
-  },
-  {
-    id: 'ranking', title: 'سامانه رتبه‌بندی', english: 'RANKING SYSTEM', number: '07',
-    category: 'enterprise', categoryLabel: 'سامانه سازمانی · ارزیابی',
-    visual: 'rank', mark: 'Rk',
-    short: 'شفاف‌سازی معیارهای ارزیابی، دوره‌های فعال و وضعیت امتیاز کارکنان؛ در مسیر توسعه.',
-    problem: 'پراکندگی معیارهای رتبه‌بندی و نبود نمای شفاف از امتیازها و شرایط موردنیاز.',
-    role: 'طراحی مدل دوره و معیارهای ارزیابی، تجربه کاربری کارکنان و الگوی دسترسی.',
-    decisions: ['تفکیک معیار و امتیاز کسب‌شده', 'پشتیبانی از دوره‌های ارزیابی', 'طراحی دسترسی‌های مبتنی بر نقش'],
-    outcome: 'زیرساختی در حال توسعه برای مدیریت شفاف‌تر چرخه ارزیابی.',
-    stack: ['Workflow', 'Authorization', '.NET']
+    stack: ['.NET 10', 'Blazor', 'HR Workflows', 'Access Control'],
+    link: 'https://hozor.urmia.ir'
   },
   {
     id: 'etraab', title: 'پلتفرم معاملات اتراب', english: 'ETRAAB', number: '08',
@@ -111,6 +116,7 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (c) => ({'&':'&a
 const faNumber = (n) => new Intl.NumberFormat('fa-IR').format(n);
 
 const grid = qs('#project-grid');
+const archivePage = document.body.dataset.page === 'archive';
 const count = qs('#work-count');
 const dialog = qs('#project-dialog');
 let previousFocus = null;
@@ -132,9 +138,10 @@ function cardMarkup(p) {
   ].join('');
 }
 function renderProjects(category = 'all') {
-  const filtered = PROJECTS.filter((p) => category === 'all' || p.category === category);
+  const featured = archivePage ? PROJECTS : PROJECTS.filter((p) => p.featuredHome);
+  const filtered = featured.filter((p) => category === 'all' || p.category === category);
   grid.innerHTML = filtered.map(cardMarkup).join('');
-  count.textContent = faNumber(filtered.length) + ' پروژه منتخب';
+  if (count) count.textContent = faNumber(filtered.length) + (archivePage ? ' پروژه در آرشیو' : ' پروژه شاخص');
   bindReveals(grid);
 }
 function openProject(id, trigger) {
@@ -228,7 +235,7 @@ function showToast(message) {
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => toast.classList.remove('visible'), 3200);
 }
-qs('#copy-email').addEventListener('click', async () => {
+qs('#copy-email')?.addEventListener('click', async () => {
   try {
     if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText('masoud.xpress@gmail.com');
@@ -261,7 +268,8 @@ function bindReveals(root) {
 function updateScroll() {
   const available = document.documentElement.scrollHeight - window.innerHeight;
   const percent = available > 0 ? Math.min(100, (window.scrollY / available) * 100) : 0;
-  qs('#scroll-line').style.width = percent + '%';
+  const progressLine = qs('#scroll-line');
+  if (progressLine) progressLine.style.width = percent + '%';
   qs('#site-header').classList.toggle('scrolled', window.scrollY > 24);
 }
 window.addEventListener('scroll', updateScroll, {passive:true});

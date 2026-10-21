@@ -1,15 +1,32 @@
 # Masoud Khodadadi — Editorial Portfolio
 
-Static, RTL personal portfolio for software engineering, architecture, product delivery and AI-native development.
+A lightweight Persian RTL portfolio for software engineering, architecture and AI-native product development.
 
-## Local preview
+## Pages and data
 
-Run docker build -t masoud-portfolio:local . and docker run --rm -p 8787:80 masoud-portfolio:local, then visit http://localhost:8787.
+- `index.html` — introduction, **five curated projects**, methodology, expertise, contact.
+- `projects.html` — **nine-project archive**, category filtering, project-detail dialogs.
+- `app.js` — shared PROJECTS catalog for both pages. The `featuredHome` flag controls homepage selection.
+- `styles.css` — editorial visuals and responsive layout.
+- `assets/` — original user portrait and source-owned real brand/logo/favicon assets.
+- `Dockerfile` / `docker-compose.yml` — static nginx, existing external goldex-network.
 
-## Production
+Current archive: GoldEx, Qirato, MeetFlow, SmartPlaque, ITAM, CitizenService, Ruzin, Etraab and hospital systems. Unlaunched RankingSystem is omitted. SmartPlaque uses the GIS Parcel/Unit model. ITAM is the independent enterprise Windows-agent hardware asset monitoring product and is not the MeetFlow monitoring feature.
 
-Deploy immutable images to reg.goldexsoft.ir/masoud-portfolio. The service uses the existing goldex-network and shared Nginx reverse proxy at masoudkhodadadi.ir. Set IMAGE_TAG to the published immutable tag when running docker compose pull and up -d --no-build. Check /healthz. No separate host ports are published.
+## QA
 
-## Content and UX
+```powershell
+node --check app.js
+docker build -t masoud-portfolio:local .
+docker run --rm -p 8787:80 masoud-portfolio:local
+```
 
-Case studies are in the PROJECTS array of app.js, with problem, role, technical decisions and grounded outcome. Static HTML and CSS require no runtime framework. Includes filterable portfolio, native detail dialog, RTL keyboard navigation, persisted color theme and honest mailto contact. Do not introduce fake stats or publish internal infrastructure. See .matemcp/skills/portfolio-design/SKILL.md.
+Verify /, /projects.html, /healthz, filters, dialogs, image assets, light/dark mode, keyboard navigation and mobile menu.
+
+## Release
+
+Push an immutable Docker image to `reg.goldexsoft.ir/masoud-portfolio:<tag>`. On production use `IMAGE_TAG=<tag>` to pull/up only `masoud-portfolio` on the existing compose network, keeping the prior image for rollback. Verify healthy status and both public routes. Other services and shared reverse proxy must remain untouched.
+
+## Content and design
+
+Keep claims grounded in source material, distinguish implementation from production launch, omit internal credentials and confidential information. See `.matemcp/skills/portfolio-design/SKILL.md`.
