@@ -142,7 +142,7 @@ function renderProjects(category = 'all') {
   const filtered = featured.filter((p) => category === 'all' || p.category === category);
   grid.innerHTML = filtered.map(cardMarkup).join('');
   if (count) count.textContent = faNumber(filtered.length) + (archivePage ? ' پروژه در آرشیو' : ' پروژه شاخص');
-  bindReveals(grid);
+
 }
 function openProject(id, trigger) {
   const p = PROJECTS.find((project) => project.id === id);
@@ -189,6 +189,10 @@ qsa('.filter-btn').forEach((button) => {
     renderProjects(button.dataset.filter);
   });
 });
+
+// Render the project catalog before initializing optional page controls.
+// This prevents unrelated failures from leaving the archive blank.
+renderProjects();
 
 /* Mobile navigation */
 const menuButton = qs('#menu-switch');
@@ -245,26 +249,7 @@ qs('#copy-email')?.addEventListener('click', async () => {
   }
 });
 
-/* Reading progress and restrained motion */
-let revealObserver;
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (!reducedMotion && 'IntersectionObserver' in window) {
-  revealObserver = new IntersectionObserver((entries, observer) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    }
-  }, {threshold: .06, rootMargin: '0px 0px 30px 0px'});
-}
-function bindReveals(root) {
-  if (!revealObserver) return;
-  qsa('[data-reveal]', root).forEach((el) => {
-    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('revealed');
-    else revealObserver.observe(el);
-  });
-}
+/* Scroll progress is decorative and must never gate content visibility. */
 function updateScroll() {
   const available = document.documentElement.scrollHeight - window.innerHeight;
   const percent = available > 0 ? Math.min(100, (window.scrollY / available) * 100) : 0;
@@ -274,6 +259,4 @@ function updateScroll() {
 }
 window.addEventListener('scroll', updateScroll, {passive:true});
 window.addEventListener('resize', updateScroll, {passive:true});
-renderProjects();
-document.documentElement.classList.add('has-js');
 updateScroll();

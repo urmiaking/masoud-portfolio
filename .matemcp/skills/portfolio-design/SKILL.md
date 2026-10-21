@@ -20,3 +20,9 @@ This site's identity is an editorial engineering-notebook: parchment (#f4f3ee), 
 - Contact is mailto and copy-email, not a simulated form submission.
 - QA: node --check app.js; git diff --check; docker build and /healthz; screenshot and click-test home/archive, filters, dialogs, dark mode and mobile menu.
 - Push immutable Docker tag and latest, preserve server rollback and recreate **only** portfolio container on the existing external network; verify live HTTPS home and archive. Commit and push source.
+
+## Rendering reliability (archive first paint)
+- Both pages load the shared `app.js`; controls that exist only on one page (such as `#copy-email`) must use optional bindings or conditional initialization. An exception after filter binding can make project cards appear only after clicking a filter.
+- Render project cards immediately before optional controls are initialized, and never hide all cards behind IntersectionObserver/reveal state. Presentation animations must preserve visible content when JavaScript or intersection callbacks are interrupted.
+- Bump the shared app.js/styles.css query fingerprint on both HTML pages whenever release assets change, to prevent older JavaScript being served with newer markup.
+- Regression check: fresh-load `/projects.html` without touching filters, expect nine visible project cards; change to enterprise filter, expect five; fresh-load the homepage, expect five project cards. Repeat at desktop and mobile widths with no console exceptions.
