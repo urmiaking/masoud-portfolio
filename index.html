@@ -15,11 +15,10 @@
   <meta property="og:image" content="https://masoudkhodadadi.ir/assets/masoud-portrait.jpg">
   <link rel="canonical" href="https://masoudkhodadadi.ir/">
   <link rel="icon" type="image/jpeg" href="/assets/masoud-portrait.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20261021-archive-render">
-  <script defer src="/app.js?v=20261021-archive-render"></script>
+  <link rel="stylesheet" href="/assets/fonts/fonts.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("mk-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch{}</script>
+  <link rel="stylesheet" href="/styles.css?v=20261029-refined">
+  <script defer src="/app.js?v=20261029-refined"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Masoud Khodadadi","url":"https://masoudkhodadadi.ir/","jobTitle":"Software Engineer & Solution Architect","knowsAbout":["Software Architecture","Product Engineering","AI-assisted Software Development",".NET","Enterprise Systems"]}</script>
   <title>مسعود خدادادی — مهندس نرم‌افزار و معمار راهکار</title>
 </head>
@@ -30,8 +29,8 @@
   <header class="site-header" id="site-header">
     <div class="shell header-inner">
       <a class="brand" href="#top" aria-label="مسعود خدادادی، صفحه اصلی">
-        <span class="brand-symbol" aria-hidden="true"><span>M</span><span class="brand-slash">/</span><span>K</span></span>
-        <span class="brand-name">مسعود خدادادی<span class="brand-sub" lang="en" dir="ltr">SOFTWARE / SOLUTIONS</span></span>
+        <span class="brand-symbol" dir="ltr" aria-hidden="true"><span>M</span><span class="brand-slash">/</span><span>K</span></span>
+        <span class="brand-name">مسعود خدادادی<span class="brand-sub" lang="en" dir="ltr">Software engineer</span></span>
       </a>
       <nav class="main-nav" aria-label="منوی اصلی">
         <a href="/projects.html">نمونه‌کارها</a>
@@ -60,23 +59,23 @@
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="shell">
         <div class="hero-overline">
-          <span class="eyebrow" lang="en">INDEPENDENT SOFTWARE ENGINEER</span>
+          <span class="eyebrow" lang="en">Software engineering & architecture</span>
           <span class="hero-overline-mid" aria-hidden="true"></span>
-          <span class="eyebrow" lang="en" dir="ltr">URMIA / IRAN · 2026</span>
+          <span class="eyebrow" lang="en" dir="ltr">Urmia, Iran / 2026</span>
         </div>
         <div class="hero-grid">
           <div class="hero-writing">
-            <p class="hero-intro">سلام، من مسعودم. <span aria-hidden="true">✳</span></p>
+            <p class="hero-intro">سلام، من مسعودم. <svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#spark"></use></svg></p>
             <h1 id="hero-title">از مسئله،<br><span class="hero-underline">راهکار</span> می‌سازم<span class="hero-period">.</span></h1>
             <p class="hero-lead">مهندس نرم‌افزار و معمار راهکار؛ با نگاهی محصول‌محور و رویکرد توسعه <span lang="en" dir="ltr">AI-Native</span>.</p>
             <p class="hero-copy">از تحلیل نیازمندی و طراحی معماری تا هدایت AI Agentها، بازبینی خروجی و استقرار در محیط واقعی؛ ابزار را متناسب با مسئله انتخاب می‌کنم، نه برعکس.</p>
             <div class="hero-ctas">
-              <a class="action-link action-link-accent" href="#work"><span>دیدن پروژه‌ها</span><span class="action-arrow" aria-hidden="true">↙</span></a>
-              <a class="action-link action-link-outline" href="#contact"><span>شروع یک گفتگو</span><span class="action-arrow" aria-hidden="true">↙</span></a>
+              <a class="action-link action-link-accent" href="#work"><span>دیدن پروژه‌ها</span><svg class="icon action-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#arrow-left"></use></svg></a>
+              <a class="action-link action-link-outline" href="#contact"><span>شروع یک گفتگو</span><svg class="icon action-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#arrow-left"></use></svg></a>
             </div>
           </div>
           <div class="hero-art" aria-label="پرتره مسعود خدادادی">
-            <div class="portrait-top-label" lang="en" dir="ltr"><span>PORTRAIT / 001</span><span>ENGINEERING WITH INTENT</span></div>
+            <div class="portrait-top-label" lang="en" dir="ltr"><span>Masoud Khodadadi</span><span>Engineering with intent</span></div>
             <div class="portrait-stage">
               <img src="/assets/masoud-studio.jpg" alt="پرتره مسعود خدادادی" width="830" height="960" fetchpriority="high">
               <div class="portrait-grid" aria-hidden="true"></div>
@@ -84,7 +83,7 @@
               <div class="portrait-corner portrait-corner-br" aria-hidden="true"></div>
               <span class="portrait-tag" lang="en">BUILD / VERIFY / SHIP</span>
             </div>
-            <div class="portrait-bottom-label" lang="en" dir="ltr"><span>MK. / FOLIO</span><span>SCROLL TO EXPLORE ↓</span></div>
+            <div class="portrait-bottom-label" lang="en" dir="ltr"><span>از ایده تا استقرار</span><a href="#work" aria-label="مرور پروژه‌ها">مرور پروژه‌ها <svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#arrow-down"></use></svg></a></div>
           </div>
         </div>
         <div class="hero-footnotes">
@@ -106,11 +105,11 @@
         </div>
         <div class="work-toolbar home-work-toolbar">
           <span class="work-count" id="work-count" aria-live="polite">پروژه‌های شاخص</span>
-          <a class="work-explore" href="/projects.html">مشاهده آرشیو کامل <span aria-hidden="true">↗</span></a>
+          <a class="work-explore" href="/projects.html">مشاهده آرشیو کامل <svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#external"></use></svg></a>
         </div>
         <div class="project-grid" id="project-grid" aria-live="polite"></div>
         <noscript><p>پروژه‌های منتخب: GoldEx، Qirato، وقت‌نگار، خدمات شهروندی، روزین، پایش ITAM، پلاک هوشمند، اتراب و سامانه‌های بیمارستانی. برای مشاهده جزئیات، جاوااسکریپت را فعال کنید.</p></noscript>
-        <div class="work-all-link-wrap"><a class="work-all-link" href="/projects.html"><span>دیدن همه نمونه‌کارها</span><span aria-hidden="true">↗</span></a></div>
+        <div class="work-all-link-wrap"><a class="work-all-link" href="/projects.html"><span>دیدن همه نمونه‌کارها</span><svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#external"></use></svg></a></div>
         <p class="work-note">برخی پروژه‌های سازمانی به‌دلیل ملاحظات محرمانگی صرفاً در سطح معماری و کاربرد معرفی شده‌اند.</p>
       </div>
     </section>
@@ -121,16 +120,16 @@
         <div class="statement-layout">
           <h2 id="approach-heading">وابسته به ابزار نیستم<span class="lime-period">.</span><br><span class="statement-muted">متعهد به نتیجه‌ام.</span></h2>
           <div class="statement-aside">
-            <span class="editorial-mark" aria-hidden="true">✳</span>
+            <svg class="icon editorial-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#spark"></use></svg>
             <p>هوش مصنوعی سرعت اجرا را تغییر داده، اما مسئولیت مهندسی همچنان پابرجاست. مهم است چه چیزی می‌سازیم، چرا این معماری را انتخاب می‌کنیم و چطور از صحت و پایداری خروجی مطمئن می‌شویم.</p>
           </div>
         </div>
         <div class="method-list" aria-label="مراحل انجام پروژه">
-          <div class="method-row"><span lang="en">01 / DISCOVER</span><h3>شناخت مسئله</h3><p>درک نیاز، کاربران، محدودیت‌ها و معیار موفقیت.</p><span class="method-icon" aria-hidden="true">↗</span></div>
-          <div class="method-row"><span lang="en">02 / ARCHITECT</span><h3>طراحی راهکار</h3><p>انتخاب معماری، مدل داده و فناوری متناسب با پروژه.</p><span class="method-icon" aria-hidden="true">↗</span></div>
-          <div class="method-row"><span lang="en">03 / ORCHESTRATE</span><h3>هدایت توسعه</h3><p>تقسیم کار، همکاری با AI Agents و یکپارچه‌سازی خروجی‌ها.</p><span class="method-icon" aria-hidden="true">↗</span></div>
-          <div class="method-row"><span lang="en">04 / VALIDATE</span><h3>بررسی و اعتبارسنجی</h3><p>بازبینی کد، تست، امنیت و کنترل تجربه کاربری.</p><span class="method-icon" aria-hidden="true">↗</span></div>
-          <div class="method-row"><span lang="en">05 / SHIP</span><h3>استقرار و بهبود</h3><p>CI/CD، پایش، پشتیبانی و اصلاح بر اساس بازخورد.</p><span class="method-icon" aria-hidden="true">↗</span></div>
+          <div class="method-row"><span lang="en">01 / DISCOVER</span><h3>شناخت مسئله</h3><p>درک نیاز، کاربران، محدودیت‌ها و معیار موفقیت.</p><svg class="icon method-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#search"></use></svg></div>
+          <div class="method-row"><span lang="en">02 / ARCHITECT</span><h3>طراحی راهکار</h3><p>انتخاب معماری، مدل داده و فناوری متناسب با پروژه.</p><svg class="icon method-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#layers"></use></svg></div>
+          <div class="method-row"><span lang="en">03 / ORCHESTRATE</span><h3>هدایت توسعه</h3><p>تقسیم کار، همکاری با AI Agents و یکپارچه‌سازی خروجی‌ها.</p><svg class="icon method-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#nodes"></use></svg></div>
+          <div class="method-row"><span lang="en">04 / VALIDATE</span><h3>بررسی و اعتبارسنجی</h3><p>بازبینی کد، تست، امنیت و کنترل تجربه کاربری.</p><svg class="icon method-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#shield"></use></svg></div>
+          <div class="method-row"><span lang="en">05 / SHIP</span><h3>استقرار و بهبود</h3><p>CI/CD، پایش، پشتیبانی و اصلاح بر اساس بازخورد.</p><svg class="icon method-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#deploy"></use></svg></div>
         </div>
       </div>
     </section>
@@ -147,21 +146,21 @@
         <div class="expertise-grid">
           <article class="expertise-card">
             <span class="cap-index" lang="en">A / SYSTEMS</span>
-            <div class="cap-glyph cap-glyph-one" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="cap-glyph" aria-hidden="true"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#layers"></use></svg></div>
             <h3>معماری و طراحی سیستم</h3>
             <p>از مدل‌سازی دامنه و طراحی API تا هویت، داده، یکپارچه‌سازی و ساختاردهی سیستم‌های پیچیده.</p>
             <span class="cap-foot" lang="en">DDD / APIs / Security / Integration</span>
           </article>
           <article class="expertise-card">
             <span class="cap-index" lang="en">B / INTELLIGENCE</span>
-            <div class="cap-glyph cap-glyph-two" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="cap-glyph" aria-hidden="true"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#nodes"></use></svg></div>
             <h3>توسعه همراه AI Agents</h3>
             <p>طراحی وظایف شفاف، مدیریت جریان کار Agentها و ارزیابی خروجی با استانداردهای مهندسی.</p>
             <span class="cap-foot" lang="en">Agents / MCP / Review / Automation</span>
           </article>
           <article class="expertise-card">
             <span class="cap-index" lang="en">C / OPERATIONS</span>
-            <div class="cap-glyph cap-glyph-three" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="cap-glyph" aria-hidden="true"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#deploy"></use></svg></div>
             <h3>تحویل و عملیات نرم‌افزار</h3>
             <p>ساخت، تست، کانتینرسازی، استقرار و پایش سرویس‌هایی که قرار است واقعاً کار کنند.</p>
             <span class="cap-foot" lang="en">Docker / CI-CD / SQL / Monitoring</span>
@@ -196,11 +195,11 @@
         <div class="section-ident invert"><span class="section-no" lang="en">05.</span><span>گفت‌وگو</span></div>
         <div class="contact-top">
           <div><p class="contact-overline" lang="en">HAVE AN IDEA IN MIND?</p><h2 id="contact-heading">بیایید یک چیز<br><em>خوب بسازیم.</em></h2></div>
-          <span class="contact-symbol" aria-hidden="true">↗</span>
+          <svg class="icon contact-symbol" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#mail"></use></svg>
         </div>
         <div class="contact-actions">
-          <a href="mailto:masoud.xpress@gmail.com?subject=%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF%20%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C" class="contact-email" lang="en" dir="ltr">masoud.xpress@gmail.com <span aria-hidden="true">↗</span></a>
-          <button type="button" class="copy-email" id="copy-email"><span>کپی آدرس ایمیل</span><span aria-hidden="true">⧉</span></button>
+          <a href="mailto:masoud.xpress@gmail.com?subject=%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF%20%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C" class="contact-email" lang="en" dir="ltr">masoud.xpress@gmail.com <svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#external"></use></svg></a>
+          <button type="button" class="copy-email" id="copy-email"><span>کپی آدرس ایمیل</span><svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#copy"></use></svg></button>
         </div>
         <p class="contact-note">برای همکاری، مشاوره معماری یا گفت‌وگو درباره یک محصول جدید، از طریق ایمیل در ارتباط باشیم.</p>
       </div>
@@ -210,12 +209,12 @@
   <footer class="site-footer"><div class="shell footer-inner">
     <a class="footer-monogram" href="#top" aria-label="بازگشت به ابتدای صفحه">MK<span>.</span></a>
     <span>© ۲۰۲۶ مسعود خدادادی — ساخته شده با دقت و توجه به جزئیات.</span>
-    <a class="back-top" href="#top">بازگشت به بالا ↑</a>
+    <a class="back-top" href="#top">بازگشت به بالا <svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#arrow-up"></use></svg></a>
   </div></footer>
 
   <dialog class="project-dialog" id="project-dialog" aria-labelledby="dialog-heading">
     <div class="dialog-shell">
-      <div class="dialog-top"><span lang="en">SELECTED WORK / CASE STUDY</span><button class="dialog-close" id="dialog-close" type="button" aria-label="بستن جزئیات">×</button></div>
+      <div class="dialog-top"><span lang="en">SELECTED WORK / CASE STUDY</span><button class="dialog-close" id="dialog-close" type="button" aria-label="بستن جزئیات"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#close"></use></svg></button></div>
       <div id="dialog-content"></div>
     </div>
   </dialog>

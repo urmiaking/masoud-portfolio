@@ -1,0 +1,36 @@
+name: Build and deploy portfolio
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-production
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.repository == 'urmiaking/masoud-portfolio' && github.ref == 'refs/heads/master'
+    runs-on: [self-hosted, Linux, X64, masoud-portfolio, production]
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate JavaScript and release files
+        shell: bash
+        run: |
+          "${RUNNER_WORKSPACE%/_work/*}/externals/node24/bin/node" --check app.js
+          git diff --check
+          bash -n scripts/release.sh
+      - name: Build, smoke test, publish and deploy
+        shell: bash
+        env:
+          RELEASE_SHA: ${{ github.sha }}
+          PORTFOLIO_DEPLOY_DIR: /var/lib/masoud-portfolio-deploy
+        run: bash scripts/release.sh
