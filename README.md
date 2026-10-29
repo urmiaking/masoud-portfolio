@@ -44,6 +44,7 @@ previous_tag=${previous_image##*:}
 IMAGE_TAG="$previous_tag" docker compose --project-name masoud-portfolio up -d --no-deps --pull never masoud-portfolio
 printf 'IMAGE_TAG=%s\n' "$previous_tag" > .env
 docker inspect masoud-portfolio --format '{{.State.Health.Status}}'
+docker exec nginx nginx -t && docker exec nginx nginx -s reload
 curl --fail https://masoudkhodadadi.ir/
 ```
 
